@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 
 @layer components {
@@ -38,10 +41,10 @@
     }
 
     .padding-l {
-        @apply xl:pl-32 lg:pl-16 md:pl-10 sm:pl-8;
+        @apply xl:pl-32 lg:pl-16 md:pl-10 sm:pl-8 max-sm:pl-5;
     }
 
     .padding-r {
-        @apply xl:pr-32 lg:pr-16 md:pr-10 sm:pr-8;
+        @apply xl:pr-32 lg:pr-16 md:pr-10 sm:pr-8 max-sm:pr-5;
     }
 }
