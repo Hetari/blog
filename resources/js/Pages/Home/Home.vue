@@ -1,5 +1,5 @@
 <template>
-    <main class="relative">
+    <main class="theme relative">
         <Nav />
     </main>
 </template>

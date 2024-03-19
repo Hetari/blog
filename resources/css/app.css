@@ -47,4 +47,16 @@
     .padding-r {
         @apply xl:pr-32 lg:pr-16 md:pr-10 sm:pr-8 max-sm:pr-5;
     }
+
+    .theme {
+        @apply light-mode dark-mode;
+    }
+
+    .light-mode {
+        @apply bg-white text-[#1A1A1A];
+    }
+
+    .dark-mode {
+        @apply dark:bg-[#090D1F] dark:text-white
+    }
 }

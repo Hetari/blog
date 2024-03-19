@@ -5,7 +5,10 @@
             'flex-col items-center justify-around h-dvh py-px': showMenu,
         }"
     >
-        <h1 class="text-xl font-semibold" :class="{ 'pt-20': showMenu }">
+        <h1
+            class="text-xl font-semibold self-center"
+            :class="{ 'pt-20': showMenu }"
+        >
             Your Name
         </h1>
 
@@ -20,6 +23,60 @@
                 <li v-for="(link, index) in navLinks" :key="index">
                     <a :href="link.path">{{ link.name }}</a>
                 </li>
+
+                <div
+                    class="w-24 h-10 px-4 py-2 rounded-3xl justify-start items-start gap-4 inline-flex cursor-pointer relative"
+                    :class="isDarkMode ? 'bg-white' : 'bg-black'"
+                    @click="toggleDarkMode()"
+                >
+                    <div
+                        class="absolute size-6 rounded-full"
+                        :class="{
+                            'dark-slide': animateSlide && isDarkMode,
+                            'translate-x-10 light-slide':
+                                animateSlide && !isDarkMode,
+                            'translate-x-0 bg-black': isDarkMode,
+                            'translate-x-10 bg-white': !isDarkMode,
+                        }"
+                    ></div>
+
+                    <div ref="parent" class="w-6 h-6 relative">
+                        <svg
+                            v-if="!isDarkMode"
+                            class="text-white fill-current"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M12 19.25C8 19.25 4.75 16 4.75 12C4.75 8 8 4.75 12 4.75C16 4.75 19.25 8 19.25 12C19.25 16 16 19.25 12 19.25ZM12 6.25C8.83 6.25 6.25 8.83 6.25 12C6.25 15.17 8.83 17.75 12 17.75C15.17 17.75 17.75 15.17 17.75 12C17.75 8.83 15.17 6.25 12 6.25Z"
+                            />
+                            <path
+                                d="M12 22.96C11.45 22.96 11 22.55 11 22V21.92C11 21.37 11.45 20.92 12 20.92C12.55 20.92 13 21.37 13 21.92C13 22.47 12.55 22.96 12 22.96ZM19.14 20.14C18.88 20.14 18.63 20.04 18.43 19.85L18.3 19.72C17.91 19.33 17.91 18.7 18.3 18.31C18.69 17.92 19.32 17.92 19.71 18.31L19.84 18.44C20.23 18.83 20.23 19.46 19.84 19.85C19.65 20.04 19.4 20.14 19.14 20.14ZM4.86 20.14C4.6 20.14 4.35 20.04 4.15 19.85C3.76 19.46 3.76 18.83 4.15 18.44L4.28 18.31C4.67 17.92 5.3 17.92 5.69 18.31C6.08 18.7 6.08 19.33 5.69 19.72L5.56 19.85C5.37 20.04 5.11 20.14 4.86 20.14ZM22 13H21.92C21.37 13 20.92 12.55 20.92 12C20.92 11.45 21.37 11 21.92 11C22.47 11 22.96 11.45 22.96 12C22.96 12.55 22.55 13 22 13ZM2.08 13H2C1.45 13 1 12.55 1 12C1 11.45 1.45 11 2 11C2.55 11 3.04 11.45 3.04 12C3.04 12.55 2.63 13 2.08 13ZM19.01 5.99C18.75 5.99 18.5 5.89 18.3 5.7C17.91 5.31 17.91 4.68 18.3 4.29L18.43 4.16C18.82 3.77 19.45 3.77 19.84 4.16C20.23 4.55 20.23 5.18 19.84 5.57L19.71 5.7C19.52 5.89 19.27 5.99 19.01 5.99ZM4.99 5.99C4.73 5.99 4.48 5.89 4.28 5.7L4.15 5.56C3.76 5.17 3.76 4.54 4.15 4.15C4.54 3.76 5.17 3.76 5.56 4.15L5.69 4.28C6.08 4.67 6.08 5.3 5.69 5.69C5.5 5.89 5.24 5.99 4.99 5.99ZM12 3.04C11.45 3.04 11 2.63 11 2.08V2C11 1.45 11.45 1 12 1C12.55 1 13 1.45 13 2C13 2.55 12.55 3.04 12 3.04Z"
+                            />
+                        </svg>
+                    </div>
+                    <!-- <div
+                        class="bg-white rounded-2xl justify-start items-start gap-2.5 flex"
+                    > -->
+                    <div ref="parent" class="w-6 h-6">
+                        <svg
+                            v-if="isDarkMode"
+                            class="text-[#090D1F] stroke-current"
+                            width="22"
+                            height="22"
+                            viewBox="0 0 22 22"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M10.9793 21.241L10.9793 21.2409L10.9722 21.2406C5.62035 21.0017 1.15035 16.686 0.778696 11.4447L0.778656 11.4442C0.454292 6.94125 3.05835 2.72964 7.26286 0.961403C7.81547 0.731669 8.19101 0.723728 8.43064 0.771655C8.67007 0.81954 8.81772 0.931941 8.90025 1.01741L8.90019 1.01746L8.90639 1.02367C8.99116 1.10843 9.09946 1.25509 9.14419 1.48454C9.18872 1.71296 9.17924 2.06939 8.95178 2.58991L8.95128 2.59107C8.46357 3.71491 8.2195 4.91384 8.22996 6.1434C8.25175 10.8463 12.1486 14.8185 16.8985 15.0097C17.5886 15.0414 18.2652 14.9881 18.9173 14.8724L18.9194 14.872C19.5024 14.7661 19.8651 14.8384 20.0844 14.9351C20.3035 15.0317 20.4219 15.1714 20.4845 15.2729C20.5493 15.3777 20.6232 15.5483 20.6141 15.7885C20.6049 16.0286 20.5109 16.3863 20.1582 16.8625L20.1563 16.865C18.1319 19.6343 14.9128 21.2501 11.4599 21.2501C11.2875 21.2501 11.1322 21.25 10.9793 21.241ZM1.27113 11.4044L1.27122 11.4057C1.62969 16.4243 5.89946 20.5182 10.987 20.7396C14.4443 20.9073 17.7243 19.3307 19.7432 16.5757L19.7433 16.5757L19.7468 16.5707C19.9192 16.3294 20.0111 16.1411 20.0581 16.0157L20.2837 15.4141L19.6452 15.3432C19.514 15.3286 19.3031 15.3182 18.9974 15.3787C18.3054 15.5016 17.5833 15.549 16.8699 15.5205L16.8698 15.5205C11.8528 15.321 7.74916 11.1062 7.71995 6.15865C7.72014 4.84669 7.97644 3.58694 8.49646 2.40409C8.62388 2.1228 8.65268 1.91939 8.66609 1.81213L8.73634 1.25011H8.16995C8.00012 1.25011 7.77385 1.2891 7.46577 1.41936C3.46087 3.1015 0.976314 7.11911 1.27113 11.4044Z"
+                            />
+                        </svg>
+                    </div>
+                    <!-- </div> -->
+                </div>
             </ul>
         </div>
 
@@ -30,7 +87,8 @@
             <span class="sr-only">Open main menu</span>
             <svg
                 v-if="!showMenu"
-                class="text-black fill-current"
+                class="fill-current"
+                :class="isDarkMode ? 'text-white' : 'text-black'"
                 width="32"
                 height="32"
                 viewBox="0 0 32 32"
@@ -49,14 +107,14 @@
 
             <svg
                 v-if="showMenu"
-                class="text-black fill-current"
-                :class="{
-                    'absolute bottom-[53px] -translate-x-2/4': showMenu,
-                }"
+                class="fill-current"
+                :class="
+                    (isDarkMode ? 'text-white' : 'text-black',
+                    showMenu ? 'absolute bottom-[53px] -translate-x-2/4' : '')
+                "
                 width="32"
                 height="32"
                 viewBox="0 0 32 32"
-                fill="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <path
@@ -71,12 +129,69 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onBeforeMount, onMounted, ref, watch } from "vue";
 import { navLinks } from "@/constants";
+import { useDark, useToggle } from "@vueuse/core";
+import { useAutoAnimate } from "@formkit/auto-animate/vue";
 
+// Define reactive refs
 let showMenu = ref(false);
+let animateSlide = ref(false);
 
+// Initialize useDark hook
+const isDarkMode = useDark();
+const toggleDarkMode = useToggle(isDarkMode);
+
+// Toggle menu function
 const toggleMenu = () => {
     showMenu.value = !showMenu.value;
 };
+
+onBeforeMount(() => {
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 768) {
+            showMenu.value = false;
+        }
+    });
+});
+
+watch(isDarkMode, () => {
+    // Check if the animation should be played initially
+    // const hasPlayedAnimation = localStorage.getItem("hasPlayedAnimation");
+    // if (!hasPlayedAnimation) {
+    animateSlide.value = true;
+    //     localStorage.setItem("hasPlayedAnimation", "true");
+    // }
+});
+
+// Initialize useAutoAnimate
+const [parent] = useAutoAnimate();
 </script>
+
+<style scoped>
+@keyframes lightSlide {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(40px);
+    }
+}
+
+@keyframes darkSlide {
+    0% {
+        transform: translateX(40px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.light-slide {
+    animation: lightSlide 0.3s ease-out;
+}
+
+.dark-slide {
+    animation: darkSlide 0.3s ease-out;
+}
+</style>
