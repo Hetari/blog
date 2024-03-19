@@ -1,5 +1,5 @@
 <template>
-    <main class="theme relative">
+    <main class="theme relative h-dvh">
         <Nav />
     </main>
 </template>

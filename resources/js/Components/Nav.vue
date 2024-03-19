@@ -40,7 +40,11 @@
                         }"
                     ></div>
 
-                    <div ref="parent" class="w-6 h-6 relative">
+                    <div
+                        :id="iconAnimation ? 'sun' : ''"
+                        ref="parent"
+                        class="w-6 h-6 relative"
+                    >
                         <svg
                             v-if="!isDarkMode"
                             class="text-white fill-current"
@@ -57,10 +61,12 @@
                             />
                         </svg>
                     </div>
-                    <!-- <div
-                        class="bg-white rounded-2xl justify-start items-start gap-2.5 flex"
-                    > -->
-                    <div ref="parent" class="w-6 h-6">
+
+                    <div
+                        :id="iconAnimation ? 'moon' : ''"
+                        ref="parent"
+                        class="w-6 h-6"
+                    >
                         <svg
                             v-if="isDarkMode"
                             class="text-[#090D1F] stroke-current"
@@ -75,7 +81,6 @@
                             />
                         </svg>
                     </div>
-                    <!-- </div> -->
                 </div>
             </ul>
         </div>
@@ -137,6 +142,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/vue";
 // Define reactive refs
 let showMenu = ref(false);
 let animateSlide = ref(false);
+let iconAnimation = ref(false);
 
 // Initialize useDark hook
 const isDarkMode = useDark();
@@ -157,11 +163,18 @@ onBeforeMount(() => {
 
 watch(isDarkMode, () => {
     // Check if the animation should be played initially
-    // const hasPlayedAnimation = localStorage.getItem("hasPlayedAnimation");
-    // if (!hasPlayedAnimation) {
-    animateSlide.value = true;
-    //     localStorage.setItem("hasPlayedAnimation", "true");
-    // }
+    const hasPlayedAnimation = localStorage.getItem("hasPlayedAnimation");
+    if (hasPlayedAnimation) {
+        animateSlide.value = true;
+        localStorage.setItem("hasPlayedAnimation", "true");
+    }
+
+    if (animateSlide.value) {
+        iconAnimation.value = true;
+        setTimeout(() => {
+            iconAnimation.value = false;
+        }, 500);
+    }
 });
 
 // Initialize useAutoAnimate
@@ -187,11 +200,25 @@ const [parent] = useAutoAnimate();
     }
 }
 
+@keyframes iconRotate {
+    0% {
+        rotate: 360deg;
+    }
+    100% {
+        rotate: 0deg;
+    }
+}
+
 .light-slide {
     animation: lightSlide 0.3s ease-out;
 }
 
 .dark-slide {
     animation: darkSlide 0.3s ease-out;
+}
+
+#sun,
+#moon {
+    animation: iconRotate 0.5s;
 }
 </style>
