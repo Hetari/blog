@@ -1,3 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .max-container {
+        max-width: 1440px;
+        margin: 0 auto;
+    }
+
+    @media screen and (min-width: 1440px) {
+        .max-container {
+            max-width: fit-content;
+        }
+    }
+}
+
+@layer utilities {
+    .padding {
+        @apply padding-x padding-y;
+    }
+
+    .padding-x {
+        @apply padding-l padding-r;
+    }
+
+    .padding-y {
+        @apply padding-t padding-b;
+    }
+
+    .padding-t {
+        @apply pt-14;
+    }
+
+    .padding-b {
+        @apply pb-14;
+    }
+
+    .padding-l {
+        @apply xl:pl-32 lg:pl-16 md:pl-10 sm:pl-8;
+    }
+
+    .padding-r {
+        @apply xl:pr-32 lg:pr-16 md:pr-10 sm:pr-8;
+    }
+}
