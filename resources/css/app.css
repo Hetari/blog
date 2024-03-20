@@ -25,7 +25,7 @@
     }
 
     .padding-x {
-        @apply padding-l padding-r;
+        @apply padding-l padding-r max-w-screen-2xl m-auto;
     }
 
     .padding-y {

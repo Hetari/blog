@@ -1,9 +1,15 @@
 <template>
-    <main class="theme relative h-dvh">
-        <Nav />
-    </main>
+    <Head title="Home" />
+    <div class="padding">Test</div>
 </template>
 
 <script setup>
-import Nav from "@/Components/Nav.vue";
+import { UserLayout } from "@/Layouts";
+import { Head } from "@inertiajs/vue3";
+</script>
+
+<script>
+export default {
+    layout: UserLayout,
+};
 </script>

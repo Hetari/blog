@@ -21,7 +21,14 @@
                 class="flex max-md:flex-col md:w-auto md:justify-around justify-center items-center max-lg:gap-10"
             >
                 <li v-for="(link, index) in navLinks" :key="index">
-                    <a :href="link.path">{{ link.name }}</a>
+                    <Link
+                        :href="link.path"
+                        :class="{
+                            'font-semibold underline underline-offset-[5px]':
+                                $page.url === link.path,
+                        }"
+                        >{{ link.name }}
+                    </Link>
                 </li>
 
                 <div
