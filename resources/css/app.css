@@ -17,6 +17,7 @@
             max-width: fit-content;
         }
     }
+
 }
 
 @layer utilities {
@@ -58,5 +59,9 @@
 
     .dark-mode {
         @apply dark:bg-[#090D1F] dark:text-white
+    }
+
+    .info-text {
+        @apply text-gray-700 text-lg leading-7 break-words max-sm:text-base max-sm:leading-7 max-sm:mt-6 dark:text-gray-300;
     }
 }

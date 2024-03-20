@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@formkit/auto-animate": "^0.8.1",
+        "@tailwindcss/aspect-ratio": "^0.4.2",
         "@vueuse/core": "^10.9.0"
     }
 }

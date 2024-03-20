@@ -33,7 +33,7 @@ const adjustFontSize = () => {
         );
 
         let minFontSize = 1;
-        let maxFontSize = 200;
+        let maxFontSize = 1000;
         let optimalFontSize = -1;
 
         while (minFontSize <= maxFontSize) {

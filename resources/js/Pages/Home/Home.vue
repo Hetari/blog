@@ -1,14 +1,18 @@
 <template>
     <Head title="Home" />
-    <div class="padding-x padding-b pt-9">
-        <Hero />
+    <div class="padding-x pt-9">
+        <Hero text="the blog" />
+    </div>
+
+    <div class="padding">
+        <RecentBlogPosts />
     </div>
 </template>
 
 <script setup>
 import { UserLayout } from "@/Layouts";
 import { Head } from "@inertiajs/vue3";
-import { Hero } from "./Partials";
+import { Hero, RecentBlogPosts } from "./Partials";
 </script>
 
 <script>

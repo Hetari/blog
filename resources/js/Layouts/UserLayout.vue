@@ -1,5 +1,5 @@
 <template>
-    <main class="theme relative h-dvh">
+    <main class="theme relative">
         <Nav />
 
         <slot />
