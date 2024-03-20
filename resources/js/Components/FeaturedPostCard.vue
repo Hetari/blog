@@ -19,7 +19,7 @@
 
         <div class="flex-1">
             <div :class="mdAspect ? 'my-3' : 'm-0 p-0'">
-                <p class="text-[#6941C6] font-semibold">
+                <p class="text-[#6941C6] dark:text-[#a47cff] font-semibold">
                     Sunday, <time>1 Jan 2024</time>
                 </p>
             </div>
