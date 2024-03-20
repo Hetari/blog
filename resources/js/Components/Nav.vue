@@ -1,6 +1,6 @@
 <template>
     <header
-        class="padding-x py-6 font-[inter] flex justify-between"
+        class="padding-x py-8 font-[inter] flex justify-between"
         :class="{
             'flex-col items-center justify-around h-dvh py-px': showMenu,
         }"
@@ -158,6 +158,13 @@ const toggleDarkMode = useToggle(isDarkMode);
 // Toggle menu function
 const toggleMenu = () => {
     showMenu.value = !showMenu.value;
+
+    // if (showMenu.value) {
+    //     document.body.classList.add("no-scroll");
+    // } else {
+    //     document.body.classList.remove("no-scroll");
+    // }
+    document.body.classList[showMenu.value ? "add" : "remove"]("no-scroll");
 };
 
 onBeforeMount(() => {
@@ -227,5 +234,11 @@ const [parent] = useAutoAnimate();
 #sun,
 #moon {
     animation: iconRotate 0.5s;
+}
+</style>
+
+<style>
+.no-scroll {
+    overflow: hidden;
 }
 </style>
