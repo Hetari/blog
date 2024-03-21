@@ -22,6 +22,7 @@ return new class extends Migration
             $table->datetime("published_at");
             $table->foreignIdFor(User::class, "user_id");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -30,6 +31,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table("posts", function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
         Schema::dropIfExists('posts');
     }
 };

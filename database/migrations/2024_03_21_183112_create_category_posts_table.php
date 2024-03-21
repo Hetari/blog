@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId("category_id")->references("id")->on("categories")->onDelete("cascade");
             $table->foreignId("post_id")->references("id")->on("posts")->onDelete("cascade");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -25,6 +26,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table("category_posts", function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
         Schema::dropIfExists('category_posts');
     }
 };
