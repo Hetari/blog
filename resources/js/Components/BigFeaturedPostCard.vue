@@ -1,34 +1,24 @@
 <template>
-    <div
-        class="h-full"
-        :class="
-            !mdAspect ? 'md:flex md:gap-5' : 'flex-col justify-end items-end'
-        "
-    >
-        <div
-            class="flex-1 max-sm:w-full"
-            :class="mdAspect ? 'md:aspect-3' : ''"
-        >
+    <div class="xl:flex xl:justify-center xl:items-start w-full">
+        <div class="max-lg:aspect-4 lg:aspect-3 xl:aspect-2 w-[100%]">
             <img
                 :src="postImage"
                 alt="post image"
-                class="object-cover w-full"
+                class="object-cover object-center w-full"
                 style="width: 100%; height: 100%"
             />
         </div>
 
-        <div class="flex-1 max-sm:mt-3">
-            <div :class="mdAspect ? 'my-3' : 'm-0 p-0'">
+        <div class="space-y-3 xl:ml-10 h-full">
+            <div class="max-sm:mt-3">
                 <p class="text-[#6941C6] dark:text-[#a47cff] font-semibold">
                     Sunday, <time>1 Jan 2024</time>
                 </p>
             </div>
 
             <div class="flex justify-between items-center">
-                <h3
-                    class="text-2xl font-semibold cursor-pointer"
-                    :class="mdAspect ? 'my-3' : ''"
-                >
+                <!-- Adjusted alignment -->
+                <h3 class="text-2xl font-semibold cursor-pointer">
                     UX review presentations
                 </h3>
                 <span class="cursor-pointer p-5 -m-5">
@@ -49,13 +39,16 @@
                 </span>
             </div>
 
-            <p class="info-text line-clamp-3" :class="mdAspect ? 'my-3' : ''">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Consequuntur totam fuga, accusantium nemo iusto repellendus
-                nesciunt rem dolore atque velit minus molestiae enim.
-            </p>
+            <div>
+                <p class="info-text line-clamp-3">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Consequuntur totam fuga, accusantium nemo iusto repellendus
+                    nesciunt rem dolore atque velit minus molestiae enim.
+                </p>
+            </div>
 
-            <div class="pt-3 flex justify-start items-center gap-3">
+            <div class="pt-3 flex justify-start items-end gap-3">
+                <!-- Adjusted alignment -->
                 <CategoryBadge
                     class="bg-purple-100 text-purple-800 hover:bg-purple-500"
                 >
@@ -79,11 +72,4 @@
 <script setup>
 import { CategoryBadge } from "@/Components";
 import { postImage } from "@/images";
-
-const props = defineProps({
-    mdAspect: {
-        type: Boolean,
-        default: false,
-    },
-});
 </script>

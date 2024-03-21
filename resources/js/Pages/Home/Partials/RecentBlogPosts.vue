@@ -16,9 +16,12 @@
                 class="md:col-span-2 xl:col-span-1 xl:row-span-1"
             />
         </div>
+        <div class="padding-y">
+            <BigFeaturedPostCard />
+        </div>
     </section>
 </template>
 
 <script setup>
-import { FeaturedPostCard } from "@/Components";
+import { FeaturedPostCard, BigFeaturedPostCard } from "@/Components";
 </script>
