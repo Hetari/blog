@@ -1,5 +1,52 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight&display=swap');
 
+@keyframes lightSlide {
+    0% {
+        transform: translateX(0px);
+    }
+
+    100% {
+        transform: translateX(40px);
+    }
+}
+
+@keyframes darkSlide {
+    0% {
+        transform: translateX(40px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes iconRotate {
+    0% {
+        rotate: 360deg;
+    }
+
+    100% {
+        rotate: 0deg;
+    }
+}
+
+.light-slide {
+    animation: lightSlide 0.3s ease-out;
+}
+
+.dark-slide {
+    animation: darkSlide 0.3s ease-out;
+}
+
+#sun,
+#moon {
+    animation: iconRotate 0.5s;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

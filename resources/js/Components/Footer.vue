@@ -1,7 +1,8 @@
 <template>
-    <footer class="relative w-full pt-5">
+    <footer class="box-border relative w-full pt-5 border-t-[1px]">
         <div
-            class="box-border flex-col sm:flex sm:flex-row items-center justify-center sm:justify-between pt-5 text-sm text-gray-500 border-t-[1px]"
+            v-if="isDataFond"
+            class="flex-col sm:flex sm:flex-row items-center justify-center sm:justify-between pt-5 text-sm text-gray-500"
         >
             <div class="sm:flex sm:flex-row sm:items-start sm:justify-start">
                 <Component
@@ -67,6 +68,10 @@ const props = defineProps({
     links: {
         type: Array,
         required: true,
+    },
+    isDataFond: {
+        type: Boolean,
+        default: false,
     },
     pageSize: {
         type: Number,

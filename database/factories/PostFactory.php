@@ -22,7 +22,7 @@ class PostFactory extends Factory
             'slug' => $this->faker->slug(),
             'thumbnail' => $this->faker->imageUrl(),
             'body' => "<p>" . implode("</p><p>", $this->faker->paragraphs(3)) . "</p>",
-            'active' => $this->faker->boolean(100),
+            'active' => $this->faker->boolean(),
             'published_at' => $this->faker->dateTimeThisMonth(),
             'user_id' => User::factory(),
         ];

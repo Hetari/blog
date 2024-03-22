@@ -5,7 +5,7 @@
         <slot />
 
         <div class="padding">
-            <Footer :links="posts.links" />
+            <Footer :links="posts.links" :isDataFond="posts.data.length > 0" />
         </div>
     </main>
 </template>

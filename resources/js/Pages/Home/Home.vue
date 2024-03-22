@@ -5,7 +5,7 @@
     </div>
 
     <div class="padding">
-        <RecentBlogPosts />
+        <RecentBlogPosts :posts="posts.data.slice(0, 4)" />
     </div>
 </template>
 
@@ -13,6 +13,12 @@
 import { UserLayout } from "@/Layouts";
 import { Head } from "@inertiajs/vue3";
 import { Hero, RecentBlogPosts } from "./Partials";
+
+const props = defineProps({
+    posts: {
+        type: Object,
+    },
+});
 </script>
 
 <script>
