@@ -22,8 +22,17 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        User::factory(10)->create();
-        Category::factory(10)->create();
-        Post::factory(50)->create();
+        $users = User::factory(10)->create();
+        $categories = Category::factory(10)->create();
+        $posts = Post::factory(50)->create();
+
+        // Associate each post with one or more categories
+        foreach ($posts as $post) {
+            // Randomly select a few categories for each post
+            $categoriesForPost = $categories->random(mt_rand(1, 3));
+
+            // Attach categories to the post
+            $post->categories()->attach($categoriesForPost);
+        }
     }
 }

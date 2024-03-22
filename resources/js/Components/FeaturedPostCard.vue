@@ -10,7 +10,7 @@
             :class="mdAspect ? 'md:aspect-3' : ''"
         >
             <img
-                :src="postImage"
+                :src="post.thumbnail"
                 alt="post image"
                 class="object-cover w-full"
                 style="width: 100%; height: 100%"
@@ -20,7 +20,9 @@
         <div class="flex-1 max-sm:mt-3">
             <div :class="mdAspect ? 'my-3' : 'm-0 p-0'">
                 <p class="text-[#6941C6] dark:text-[#a47cff] font-semibold">
-                    Sunday, <time>1 Jan 2024</time>
+                    <time>
+                        {{ formatPublishedDate(post.published_at) }}
+                    </time>
                 </p>
             </div>
 
@@ -29,7 +31,7 @@
                     class="text-2xl font-semibold cursor-pointer"
                     :class="mdAspect ? 'my-3' : ''"
                 >
-                    UX review presentations
+                    {{ post.title }}
                 </h3>
                 <span class="cursor-pointer p-5 -m-5">
                     <svg
@@ -50,26 +52,17 @@
             </div>
 
             <p class="info-text line-clamp-3" :class="mdAspect ? 'my-3' : ''">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Consequuntur totam fuga, accusantium nemo iusto repellendus
-                nesciunt rem dolore atque velit minus molestiae enim.
+                {{ post.excerpt }}
             </p>
 
             <div class="pt-3 flex justify-start items-center gap-3">
+                <!-- TODO: make a costume color for each category -->
                 <CategoryBadge
+                    v-for="category in post.categories"
+                    :key="category.id"
                     class="bg-purple-100 text-purple-800 hover:bg-purple-500"
                 >
-                    Design
-                </CategoryBadge>
-
-                <CategoryBadge
-                    class="bg-blue-100 text-blue-800 hover:bg-blue-500"
-                >
-                    Research
-                </CategoryBadge>
-
-                <CategoryBadge class="bg-red-100 text-red-800 hover:bg-red-500">
-                    Presentation
+                    {{ category.title }}
                 </CategoryBadge>
             </div>
         </div>
@@ -78,12 +71,16 @@
 
 <script setup>
 import { CategoryBadge } from "@/Components";
-import { postImage } from "@/images";
+import { formatPublishedDate } from "@/functions";
 
 const props = defineProps({
     mdAspect: {
         type: Boolean,
         default: false,
+    },
+    post: {
+        type: Object,
+        required: true,
     },
 });
 </script>

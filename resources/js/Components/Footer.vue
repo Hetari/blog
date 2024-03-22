@@ -77,10 +77,6 @@ const props = defineProps({
         type: Number,
         default: 3,
     },
-    currentPage: {
-        type: Number,
-        required: true,
-    },
 });
 
 function cleanLabel(label) {

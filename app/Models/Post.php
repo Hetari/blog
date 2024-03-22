@@ -24,6 +24,18 @@ class Post extends Model
 
     protected $guarded = [];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Generating excerpt before creating the post
+        static::creating(function ($post) {
+            // Strip HTML tags from the body before creating the excerpt
+            $excerpt = strip_tags($post->body);
+            // Trim the excerpt to desired length
+            $post->excerpt = substr($excerpt, 0, 750); // Adjust the length of excerpt as needed
+        });
+    }
 
     public function user()
     {
@@ -32,6 +44,6 @@ class Post extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'category_post');
     }
 }

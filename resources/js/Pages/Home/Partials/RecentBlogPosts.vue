@@ -15,6 +15,7 @@
                     'xl:row-span-1': index !== 0, // Apply this class to all posts except the first one
                 }"
                 :mdAspect="index === 0"
+                :post="post"
             />
         </div>
 
