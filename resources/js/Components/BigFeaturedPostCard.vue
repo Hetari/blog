@@ -10,7 +10,7 @@
         </div>
 
         <div class="space-y-3 xl:ml-10 h-full">
-            <div class="max-sm:mt-3">
+            <div class="max-lg:mt-3">
                 <p class="text-[#6941C6] dark:text-[#a47cff] font-semibold">
                     Sunday, <time>1 Jan 2024</time>
                 </p>

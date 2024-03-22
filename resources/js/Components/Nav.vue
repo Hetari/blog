@@ -142,7 +142,7 @@
 </template>
 
 <script setup>
-import { onBeforeMount, onMounted, ref, watch } from "vue";
+import { onBeforeMount, ref, watch } from "vue";
 import { navLinks } from "@/constants";
 import { useDark, useToggle } from "@vueuse/core";
 import { useAutoAnimate } from "@formkit/auto-animate/vue";
@@ -195,51 +195,3 @@ watch(isDarkMode, () => {
 // Initialize useAutoAnimate
 const [parent] = useAutoAnimate();
 </script>
-
-<style scoped>
-@keyframes lightSlide {
-    0% {
-        transform: translateX(0px);
-    }
-    100% {
-        transform: translateX(40px);
-    }
-}
-
-@keyframes darkSlide {
-    0% {
-        transform: translateX(40px);
-    }
-    100% {
-        transform: translateX(0px);
-    }
-}
-
-@keyframes iconRotate {
-    0% {
-        rotate: 360deg;
-    }
-    100% {
-        rotate: 0deg;
-    }
-}
-
-.light-slide {
-    animation: lightSlide 0.3s ease-out;
-}
-
-.dark-slide {
-    animation: darkSlide 0.3s ease-out;
-}
-
-#sun,
-#moon {
-    animation: iconRotate 0.5s;
-}
-</style>
-
-<style>
-.no-scroll {
-    overflow: hidden;
-}
-</style>
