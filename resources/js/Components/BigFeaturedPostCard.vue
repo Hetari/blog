@@ -23,7 +23,7 @@
                 <h3 class="text-2xl font-semibold cursor-pointer">
                     {{ post.title }}
                 </h3>
-                <span class="cursor-pointer p-5 -m-5">
+                <span class="cursor-pointer">
                     <svg
                         class="theme stroke-current"
                         width="12"

@@ -26,14 +26,14 @@
                 </p>
             </div>
 
-            <div class="flex justify-between items-center">
+            <Link class="flex justify-between items-center">
                 <h3
                     class="text-2xl font-semibold cursor-pointer"
                     :class="mdAspect ? 'my-3' : ''"
                 >
                     {{ post.title }}
                 </h3>
-                <span class="cursor-pointer p-5 -m-5">
+                <span class="cursor-pointer">
                     <svg
                         class="theme stroke-current"
                         width="12"
@@ -49,7 +49,7 @@
                         />
                     </svg>
                 </span>
-            </div>
+            </Link>
 
             <p class="info-text line-clamp-3" :class="mdAspect ? 'my-3' : ''">
                 {{ post.excerpt }}
