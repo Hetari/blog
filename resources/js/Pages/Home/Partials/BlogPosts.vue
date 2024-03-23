@@ -6,7 +6,7 @@
         <div
             class="w-full grid max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-center gap-10 place-items-center"
         >
-            <PostCard v-for="post in posts" :key="post.id" :post="post" />
+            <PostCard v-for="post in posts" :key="post.slug" :post="post" />
         </div>
     </section>
 </template>

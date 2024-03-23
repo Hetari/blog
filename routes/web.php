@@ -6,7 +6,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', [PostController::class, 'index']);
+Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 // 'canLogin' => Route::has('login'),
 // 'canRegister' => Route::has('register'),

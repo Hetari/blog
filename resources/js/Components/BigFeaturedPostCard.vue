@@ -2,6 +2,7 @@
     <div class="xl:flex xl:justify-center xl:items-start w-full">
         <div class="max-lg:aspect-4 lg:aspect-3 xl:aspect-2 w-[100%]">
             <img
+                loading="lazy"
                 :src="post.thumbnail"
                 alt="post image"
                 class="object-cover object-center w-full"
@@ -18,7 +19,10 @@
                 </p>
             </div>
 
-            <div class="flex justify-between items-center">
+            <Link
+                :href="`posts/${post.slug}`"
+                class="flex justify-between items-center"
+            >
                 <!-- Adjusted alignment -->
                 <h3 class="text-2xl font-semibold cursor-pointer">
                     {{ post.title }}
@@ -39,7 +43,7 @@
                         />
                     </svg>
                 </span>
-            </div>
+            </Link>
 
             <div>
                 <p class="info-text line-clamp-3">

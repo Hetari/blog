@@ -1,15 +1,27 @@
 <template>
     <div class="w-full flex-col justify-start items-start gap-8 inline-flex">
-        <img class="w-full h-full relative" :src="post.thumbnail" />
+        <img
+            class="w-full h-full relative"
+            loading="lazy"
+            :src="post.thumbnail"
+        />
 
-        <div class="h-56 flex-col justify-start items-start gap-3 flex">
+        <div
+            class="flex-col justify-start items-start gap-3 flex"
+            :class="{
+                'h-full': showAllExcerpt,
+            }"
+        >
             <p class="text-[#6941C6] dark:text-[#a47cff] font-semibold">
                 <time :datetime="post.published_at">
                     {{ formatPublishedDate(post.published_at) }}
                 </time>
             </p>
 
-            <Link class="flex justify-center items-start">
+            <Link
+                :href="`posts/${post.slug}`"
+                class="flex justify-center items-start"
+            >
                 <h3 class="text-2xl font-semibold cursor-pointer">
                     {{ post.title }}
                 </h3>
@@ -30,9 +42,14 @@
                     </svg>
                 </span>
             </Link>
-            <p class="info-text line-clamp-3">
-                {{ post.excerpt }}
-            </p>
+            <p
+                class="info-text"
+                :class="{
+                    'line-clamp-5': showAllExcerpt,
+                    'line-clamp-none': postShow,
+                }"
+                v-html="postShow ? post.excerpt : post.body"
+            ></p>
         </div>
 
         <div class="flex justify-start items-center gap-3">
@@ -56,6 +73,14 @@ const props = defineProps({
     post: {
         type: Object,
         required: true,
+    },
+    showAllExcerpt: {
+        type: Boolean,
+        default: false,
+    },
+    postShow: {
+        type: Boolean,
+        default: false,
     },
 });
 </script>

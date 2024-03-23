@@ -1,5 +1,4 @@
 <template>
-    <!-- theme  -->
     <header
         class="padding-x py-8 font-[inter] flex justify-between"
         :class="{

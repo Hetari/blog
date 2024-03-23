@@ -10,6 +10,7 @@
             :class="mdAspect ? 'md:aspect-3' : ''"
         >
             <img
+                loading="lazy"
                 :src="post.thumbnail"
                 alt="post image"
                 class="object-cover w-full"
@@ -26,7 +27,10 @@
                 </p>
             </div>
 
-            <Link class="flex justify-between items-center">
+            <Link
+                :href="`posts/${post.slug}`"
+                class="flex justify-between items-center"
+            >
                 <h3
                     class="text-2xl font-semibold cursor-pointer"
                     :class="mdAspect ? 'my-3' : ''"
