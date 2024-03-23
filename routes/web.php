@@ -1,13 +1,18 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+// Posts routes
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+// Categories routes
+Route::get('/categories/{category:slug}', [CategoryController::class, 'index'])->name('categories');
 
 // 'canLogin' => Route::has('login'),
 // 'canRegister' => Route::has('register'),

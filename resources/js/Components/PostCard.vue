@@ -58,6 +58,7 @@
             <CategoryBadge
                 v-for="category in post.categories"
                 :key="category.id"
+                :href="`categories/${category.slug}`"
                 class="bg-purple-100 text-purple-800 hover:bg-purple-500"
             >
                 {{ category.title }}
