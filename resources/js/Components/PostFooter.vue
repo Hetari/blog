@@ -1,5 +1,5 @@
 <template>
-    <footer class="">
+    <footer>
         <div class="text-center space-y-5">
             <p class="text-[#6941C6] dark:text-[#a47cff] font-semibold">
                 Newsletters

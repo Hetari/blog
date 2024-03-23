@@ -75,7 +75,7 @@ class PostController extends Controller
             ->with('categories')
             ->orderByDesc('published_at')
             ->limit(5)
-            ->paginate(5)
+            ->paginate(4)
             ->map(fn ($post) => [
                 "title" => $post->title,
                 "excerpt" => $post->excerpt,

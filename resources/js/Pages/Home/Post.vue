@@ -14,14 +14,9 @@
 
         <div class="space-y-20">
             <PostCard :showPost="true" :post="post" />
-
             <PostFooter />
         </div>
     </section>
-    <!-- <div class="padding grid gap-10 grid-cols-1 md:grid-cols-[1fr_2fr]"> -->
-    <!-- <br /> -->
-    <!-- <PostFooter /> -->
-    <!-- </div> -->
 </template>
 
 <script setup>
