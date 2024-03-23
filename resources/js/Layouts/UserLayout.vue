@@ -7,4 +7,6 @@
 
 <script setup>
 import { Nav } from "@/Components";
+import { useDark } from "@vueuse/core";
+useDark();
 </script>

@@ -30,6 +30,21 @@
                         >{{ link.name }}
                     </Link>
                 </li>
+                <li>
+                    <Link
+                        v-for="(link, index) in authLinks"
+                        :key="index"
+                        :href="link.path"
+                        class="px-4 py-2 transition"
+                        :class="
+                            index === 0
+                                ? 'rounded-l-xl text-white m-0 bg-black dark:bg-neutral-700 hover:bg-neutral-700 dark:hover:bg-neutral-600'
+                                : 'dark:text-white rounded-e-xl bg-neutral-200/90 dark:bg-neutral-800  hover:bg-neutral-300 dark:hover:bg-neutral-900'
+                        "
+                    >
+                        {{ link.name }}
+                    </Link>
+                </li>
 
                 <div
                     class="w-24 h-10 px-4 py-2 rounded-3xl justify-start items-start gap-4 inline-flex cursor-pointer relative"
@@ -142,7 +157,7 @@
 
 <script setup>
 import { onBeforeMount, ref, watch } from "vue";
-import { navLinks } from "@/constants";
+import { navLinks, authLinks } from "@/constants";
 import { useDark, useToggle } from "@vueuse/core";
 import { useAutoAnimate } from "@formkit/auto-animate/vue";
 
