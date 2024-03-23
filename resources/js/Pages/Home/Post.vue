@@ -1,7 +1,9 @@
 <template>
     <Head title="Post" />
     <section class="padding grid gap-10 sm:grid-cols-1 md:grid-cols-[1fr_2fr]">
-        <div class="justify-center items-center place-items-center space-y-10">
+        <div
+            class="justify-center items-center place-items-center space-y-10 max-md:hidden"
+        >
             <PostCard
                 :showAllExcerpt="true"
                 v-for="post in recent_posts"
@@ -10,16 +12,23 @@
             />
         </div>
 
-        <div class="">
+        <div class="space-y-20">
             <PostCard :showPost="true" :post="post" />
+
+            <PostFooter />
         </div>
     </section>
+    <!-- <div class="padding grid gap-10 grid-cols-1 md:grid-cols-[1fr_2fr]"> -->
+    <!-- <br /> -->
+    <!-- <PostFooter /> -->
+    <!-- </div> -->
 </template>
 
 <script setup>
 import { Head } from "@inertiajs/vue3";
 import { UserLayout } from "@/Layouts";
-import { PostCard } from "@/Components";
+import { PostCard, PostFooter } from "@/Components";
+import { computed } from "vue";
 
 const props = defineProps({
     post: {
@@ -30,6 +39,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+});
+
+const shouldHideOnMobile = computed(() => {
+    return window.innerWidth <= 640;
 });
 </script>
 
