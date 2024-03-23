@@ -1,9 +1,8 @@
 <template>
     <Head title="Post" />
     <section class="padding grid gap-10 sm:grid-cols-1 md:grid-cols-[1fr_2fr]">
-        <div class="justify-center items-center place-items-center">
+        <div class="justify-center items-center place-items-center space-y-10">
             <PostCard
-                :showPost="true"
                 :showAllExcerpt="true"
                 v-for="post in recent_posts"
                 :key="post.slug"
@@ -12,7 +11,7 @@
         </div>
 
         <div class="">
-            <PostCard :post="post" />
+            <PostCard :showPost="true" :post="post" />
         </div>
     </section>
 </template>

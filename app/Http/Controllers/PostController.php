@@ -6,6 +6,8 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+use function PHPSTORM_META\type;
+
 class PostController extends Controller
 {
     /**
@@ -62,25 +64,28 @@ class PostController extends Controller
             ->only([
                 'title',
                 'body',
+                'slug',
                 'thumbnail',
                 'published_at',
-                'categories'
+                "categories"
             ]);
 
         $recent_posts = Post::where('active', "=", true)
             ->where('published_at', "!=", "NULL")
             ->with('categories')
             ->orderByDesc('published_at')
-            ->select([
-                'title',
-                'body',
-                'thumbnail',
-                'published_at',
-                'excerpt',
-                'slug'
-            ])
             ->limit(5)
-            ->get();
+            ->paginate(5)
+            ->map(fn ($post) => [
+                "title" => $post->title,
+                "excerpt" => $post->excerpt,
+                "slug" => $post->slug,
+                "thumbnail" => $post->thumbnail,
+                "body" => $post->body,
+                "published_at" => $post->published_at,
+                "categories" => $post->categories
+            ]);
+
 
         return Inertia::render('Home/Post', [
             'post' => $post,

@@ -23,7 +23,7 @@ class PostFactory extends Factory
             'title' => $this->faker->sentence(),
             'slug' => $this->faker->slug(),
             'thumbnail' => $this->faker->imageUrl(),
-            'body' => "<p>" . implode("</p><p>", $this->faker->paragraphs(3)) . "</p>",
+            'body' => "<p>" . implode("</p><p>", $this->faker->paragraphs(20)) . "</p>",
             'active' => $this->faker->boolean(),
             'published_at' => Carbon::now(),
             'user_id' => User::factory(),

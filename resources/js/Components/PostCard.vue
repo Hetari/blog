@@ -43,12 +43,13 @@
                 </span>
             </Link>
             <p
-                class="info-text"
+                class="info-text space-y-5"
                 :class="{
                     'line-clamp-5': showAllExcerpt,
-                    'line-clamp-none': postShow,
+                    'line-clamp-none': showPost,
+                    'line-clamp-3': !showPost,
                 }"
-                v-html="postShow ? post.excerpt : post.body"
+                v-html="!showPost ? post.excerpt : post.body"
             ></p>
         </div>
 
@@ -78,7 +79,7 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
-    postShow: {
+    showPost: {
         type: Boolean,
         default: false,
     },
