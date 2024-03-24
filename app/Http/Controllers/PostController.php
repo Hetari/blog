@@ -21,7 +21,8 @@ class PostController extends Controller
             ->whereDate('published_at', "<", Carbon::now())
             ->with('categories')
             ->orderByDesc('published_at')
-            ->paginate()
+            ->paginate(16)
+            ->onEachSide(2)
             ->through(fn ($post) => [
                 "title" => $post->title,
                 "excerpt" => $post->excerpt,
@@ -31,7 +32,6 @@ class PostController extends Controller
                 "published_at" => $post->published_at,
                 "categories" => $post->categories
             ]);
-
 
         return Inertia::render('Home/Home', [
             'posts' => $posts

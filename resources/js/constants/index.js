@@ -17,4 +17,15 @@ const navLinks = [
     },
 ];
 
-export { navLinks };
+const authLinks = [
+    {
+        name: "Login",
+        path: "/login",
+    },
+    {
+        name: "Register",
+        path: "/register",
+    },
+];
+
+export { navLinks, authLinks };

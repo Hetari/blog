@@ -21,7 +21,7 @@
                     id="email"
                     name="email"
                     type="email"
-                    class="w-3/5 py-2 px-4 rounded-lg shadow border border-gray-300 dark:border-gray-900 focus:outline-none transition-all duration-200 ease-in-out bg-white dark:bg-gray-800 hover:border-gray-400"
+                    class="w-3/5 py-2 px-4 rounded-lg shadow border-gray-300 dark:border-gray-900 focus:outline-none transition-all duration-200 ease-in-out bg-white dark:bg-gray-800 hover:border-gray-400"
                     placeholder="Enter your email"
                 />
                 <button

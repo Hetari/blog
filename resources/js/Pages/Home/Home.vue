@@ -11,7 +11,6 @@
     <div class="padding" v-if="posts.data.length >= 5">
         <BlogPosts :posts="posts.data.slice(4)" />
     </div>
-
     <div class="padding">
         <Footer :links="posts.links" :isDataFond="posts.data.length > 0" />
     </div>

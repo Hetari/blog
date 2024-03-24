@@ -14,8 +14,6 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 // Categories routes
 Route::get('/categories/{category:slug}', [CategoryController::class, 'index'])->name('categories');
 
-// 'canLogin' => Route::has('login'),
-// 'canRegister' => Route::has('register'),
 
 Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
