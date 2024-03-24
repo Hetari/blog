@@ -10,19 +10,17 @@ class Post extends Model
 {
     use HasFactory, SoftDeletes;
 
-    // protected $fillable = [
-    //     "title",
-    //     "slug",
-    //     "thumbnail",
-    //     "body",
-    //     "active",
-    //     "published_at",
-    //     "user_id",
-    //     "updated_at",
-    //     "created_at",
-    // ];
+    protected $fillable = [
+        "title",
+        "slug",
+        "thumbnail",
+        "body",
+        "active",
+        "published_at",
+        "user_id",
+    ];
 
-    protected $guarded = [];
+    // protected $guarded = [];
 
     protected static function boot()
     {

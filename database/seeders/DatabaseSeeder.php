@@ -24,12 +24,15 @@ class DatabaseSeeder extends Seeder
 
         $users = User::factory(10)->create();
         $categories = Category::factory(10)->create();
-        $posts = Post::factory(50)->create();
+        $posts = Post::factory(50)->create([
+            'user_id' => $users->random()->id
+        ]);
 
         // Associate each post with one or more categories
         foreach ($posts as $post) {
             // Randomly select a few categories for each post
             $categoriesForPost = $categories->random(mt_rand(1, 3));
+
 
             // Attach categories to the post
             $post->categories()->attach($categoriesForPost);
