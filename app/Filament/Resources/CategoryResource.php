@@ -31,6 +31,7 @@ class CategoryResource extends Resource
                     ->required()
                     ->maxLength(2048)
                     ->live()
+                    ->debounce(500)
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                 Forms\Components\TextInput::make('slug')
                     ->required()

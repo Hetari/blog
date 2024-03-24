@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use Illuminate\Support\Str;
 use Filament\Forms\Set;
+use Filament\Forms\Get;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
@@ -39,7 +40,13 @@ class PostResource extends Resource
                             ->required()
                             ->maxLength(2048)
                             ->live()
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                            ->debounce(500)
+                            ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                                if (($get('slug') ?? '') !== Str::slug($old)) {
+                                    return;
+                                }
+                                $set('slug', Str::slug($state));
+                            }),
                         Forms\Components\TextInput::make('slug')
                             ->hint('Automatically generated')
                             ->maxLength(2048),
@@ -77,20 +84,17 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('thumbnail')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('thumbnail'),
                 Tables\Columns\IconColumn::make('active')
                     ->boolean(),
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('user.name')
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
