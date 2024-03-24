@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -17,7 +18,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::where('active', "=", true)
-            ->where('published_at', "!=", "NULL")
+            ->whereDate('published_at', "<", Carbon::now())
             ->with('categories')
             ->orderByDesc('published_at')
             ->paginate()
@@ -71,7 +72,7 @@ class PostController extends Controller
             ]);
 
         $recent_posts = Post::where('active', "=", true)
-            ->where('published_at', "!=", "NULL")
+            ->whereDate('published_at', "<", Carbon::now())
             ->with('categories')
             ->orderByDesc('published_at')
             ->limit(5)

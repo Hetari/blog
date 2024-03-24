@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -18,7 +19,7 @@ class CategoryController extends Controller
             $query->where('slug', $categorySlug);
         })
             ->where('active', "=", true)
-            ->where('published_at', "!=", "NULL")
+            ->whereDate('published_at', "<", Carbon::now())
             ->with('categories')
             ->orderByDesc('published_at')
             ->paginate()
