@@ -15,19 +15,20 @@ class CategoryController extends Controller
     public function index()
     {
         $categorySlug = request()->category;
+
         $posts = Post::whereHas('categories', function ($query) use ($categorySlug) {
             $query->where('slug', $categorySlug);
         })
             ->where('active', "=", true)
-            ->whereDate('published_at', "<", Carbon::now())
+            ->whereDate('published_at', "<=", Carbon::now())
             ->with('categories')
             ->orderByDesc('published_at')
             ->paginate()
             ->through(fn ($post) => [
                 "title" => $post->title,
-                "excerpt" => $post->excerpt,
+                'excerpt' => $post->excerpt(),
                 "slug" => $post->slug,
-                "thumbnail" => $post->thumbnail,
+                "thumbnail" => $post->getThumbnail(),
                 "body" => $post->body,
                 "published_at" => $post->published_at,
                 "categories" => $post->categories

@@ -39,22 +39,6 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(string $slug)
@@ -74,7 +58,7 @@ class PostController extends Controller
             ]);
 
         $recent_posts = Post::where('active', "=", true)
-            ->whereDate('published_at', "<", Carbon::now())
+            ->whereDate('published_at', "<=", Carbon::now())
             ->with('categories')
             ->orderByDesc('published_at')
             ->limit(5)
@@ -88,32 +72,13 @@ class PostController extends Controller
                 "categories" => $post->categories
             ]);
 
+        if ($post->isEmpty()) {
+            return redirect()->route('home');
+        }
+
         return Inertia::render('Home/Post', [
             'post' => $post,
             'recent_posts' => $recent_posts,
         ]);
-    }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

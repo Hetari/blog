@@ -59,7 +59,11 @@
                     :href="`categories/${category.slug}`"
                     class="bg-purple-100 text-purple-800 hover:bg-purple-500"
                 >
-                    {{ category.title }}
+                    <Link
+                        v-html="category.title"
+                        :href="`categories/${category.slug}`"
+                    >
+                    </Link>
                 </CategoryBadge>
             </div>
         </div>
