@@ -23,7 +23,7 @@
                     :key="index"
                     class="size-10 relative rounded-lg bg-ghostwhite-200 overflow-hidden shrink-0 text-primary-600"
                     :class="{
-                        'bg-violet-100 dark:bg-violet-200': link.active,
+                        'bg-violet-100 dark:bg-neutral-700': link.active,
                     }"
                     :href="link.url"
                 >
@@ -33,8 +33,9 @@
                         <div
                             class="relative leading-[20px] font-medium"
                             :class="{
-                                'text-violet-700': link.active,
-                                'dark:text-gray-200': !link.active,
+                                'text-violet-700 dark:text-white': link.active,
+                                'text-gray-200 dark:text-gray-200':
+                                    !link.active,
                             }"
                         >
                             {{ link.label }}

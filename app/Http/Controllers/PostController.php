@@ -73,25 +73,6 @@ class PostController extends Controller
                 "categories" => $post->categories
             ]);
 
-            // ->map(fn ($post) => [
-            //     "title" => $post->title,
-            //     "slug" => $post->slug,
-            //     "thumbnail" => $post->getThumbnail(),
-            //     "body" => $post->body,
-            //     "published_at" => $post->published_at,
-            //     "categories" => $post->categories
-            // ]);
-            // ->only([
-            //     'title',
-            //     'body',
-            //     'slug',
-            //     'thumbnail',
-            //     'published_at',
-            //     "categories"
-            // ])
-
-        ;
-
         $recent_posts = Post::where('active', "=", true)
             ->whereDate('published_at', "<", Carbon::now())
             ->with('categories')

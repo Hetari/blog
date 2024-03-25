@@ -24,7 +24,6 @@
 import { Head } from "@inertiajs/vue3";
 import { UserLayout } from "@/Layouts";
 import { PostCard, PostFooter } from "@/Components";
-import { computed } from "vue";
 
 const props = defineProps({
     post: {

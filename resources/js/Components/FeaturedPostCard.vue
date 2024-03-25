@@ -34,9 +34,8 @@
                 <h3
                     class="text-2xl font-semibold cursor-pointer"
                     :class="mdAspect ? 'my-3' : ''"
-                >
-                    {{ post.title }}
-                </h3>
+                    v-html="post.title"
+                ></h3>
                 <span class="cursor-pointer">
                     <svg
                         class="theme stroke-current"
@@ -55,9 +54,11 @@
                 </span>
             </Link>
 
-            <p class="info-text line-clamp-3" :class="mdAspect ? 'my-3' : ''">
-                {{ post.excerpt }}
-            </p>
+            <p
+                class="info-text line-clamp-3"
+                :class="mdAspect ? 'my-3' : ''"
+                v-html="post.excerpt"
+            ></p>
 
             <div class="pt-3 flex justify-start items-center gap-3">
                 <!-- TODO: make a costume color for each category -->
@@ -66,8 +67,8 @@
                     :key="category.id"
                     :href="`categories/${category.slug}`"
                     class="bg-purple-100 text-purple-800 hover:bg-purple-500"
+                    v-html="category.title"
                 >
-                    {{ category.title }}
                 </CategoryBadge>
             </div>
         </div>
