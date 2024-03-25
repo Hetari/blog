@@ -9,7 +9,7 @@
             class="text-xl font-semibold self-center"
             :class="{ 'pt-20': showMenu }"
         >
-            Your Name
+            Blogy
         </h1>
 
         <div
@@ -18,7 +18,7 @@
             :class="{ hidden: !showMenu }"
         >
             <ul
-                class="flex max-md:flex-col md:w-auto md:justify-around justify-center items-center max-lg:gap-10"
+                class="flex max-md:flex-col md:w-auto md:justify-around justify-center items-center max-lg:gap-8"
             >
                 <li v-for="(link, index) in navLinks" :key="index">
                     <Link
@@ -30,7 +30,7 @@
                         >{{ link.name }}
                     </Link>
                 </li>
-                <li>
+                <li v-if="!canLogin ? true : false">
                     <Link
                         v-for="(link, index) in authLinks"
                         :key="index"
@@ -46,8 +46,17 @@
                     </Link>
                 </li>
 
+                <li v-else>
+                    <Link
+                        href="/dashboard"
+                        class="px-4 py-2 transition rounded-xl text-white m-0 bg-black dark:bg-neutral-700 hover:bg-neutral-700 dark:hover:bg-neutral-600"
+                    >
+                        {{ canLogin.name }}
+                    </Link>
+                </li>
+
                 <div
-                    class="w-24 h-10 px-4 py-2 rounded-3xl justify-start items-start gap-4 inline-flex cursor-pointer relative"
+                    class="w-24 h-10 px-4 py-2 rounded-full justify-start items-start gap-4 inline-flex cursor-pointer relative"
                     :class="isDarkMode ? 'bg-white' : 'bg-black'"
                     @click="toggleDarkMode()"
                 >
@@ -160,6 +169,13 @@ import { onBeforeMount, ref, watch } from "vue";
 import { navLinks, authLinks } from "@/constants";
 import { useDark, useToggle } from "@vueuse/core";
 import { useAutoAnimate } from "@formkit/auto-animate/vue";
+
+const props = defineProps({
+    canLogin: {
+        type: Object,
+        default: () => {},
+    },
+});
 
 // Define reactive refs
 let showMenu = ref(false);

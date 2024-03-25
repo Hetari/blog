@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use function PHPSTORM_META\type;
@@ -34,7 +35,8 @@ class PostController extends Controller
             ]);
 
         return Inertia::render('Home/Home', [
-            'posts' => $posts
+            'posts' => $posts,
+            'canLogin' => Route::has('login'),
         ]);
     }
 
