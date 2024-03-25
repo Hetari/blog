@@ -7,14 +7,14 @@
         >
             <PostCard
                 :showAllExcerpt="true"
-                v-for="post in recent_posts"
+                v-for="post in props.recent_posts"
                 :key="post.slug"
-                :post="post[0]"
+                :post="post"
             />
         </div>
 
         <div class="space-y-20">
-            <PostCard :showPost="true" :post="post[0]" />
+            <PostCard :showPost="true" :post="props.post[0]" />
             <PostFooter />
         </div>
     </section>
@@ -27,11 +27,9 @@ import { PostCard, PostFooter } from "@/Components";
 
 const props = defineProps({
     post: {
-        type: Object,
         required: true,
     },
     recent_posts: {
-        type: Object,
         required: true,
     },
 });

@@ -14,7 +14,7 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // TODO: use cache here
+    // TODO: use cache here, and others controllers.
     public function index()
     {
         $posts = Post::where('active', "=", true)
@@ -59,11 +59,11 @@ class PostController extends Controller
      */
     public function show(string $slug)
     {
+
         $post = Post::where('slug', "=", $slug)
             ->with('categories')
             ->orderByDesc('published_at')
-            ->limit(5)
-            ->paginate(4)
+            ->paginate()
             ->map(fn ($post) => [
                 "title" => $post->title,
                 "slug" => $post->slug,
