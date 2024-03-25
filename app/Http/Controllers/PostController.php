@@ -18,17 +18,17 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::where('active', "=", true)
-            ->whereDate('published_at', "<", Carbon::now())
+            ->whereDate('published_at', "<=", Carbon::now())
             ->with('categories')
             ->orderByDesc('published_at')
             ->paginate(16)
             ->onEachSide(2)
             ->through(fn ($post) => [
                 "title" => $post->title,
-                "excerpt" => $post->excerpt,
                 "slug" => $post->slug,
-                "thumbnail" => $post->thumbnail,
+                "thumbnail" => $post->getThumbnail(),
                 "body" => $post->body,
+                'excerpt' => $post->excerpt(),
                 "published_at" => $post->published_at,
                 "categories" => $post->categories
             ]);
@@ -59,17 +59,38 @@ class PostController extends Controller
      */
     public function show(string $slug)
     {
-        $post = Post::where('slug', $slug)
-            ->first()
-            ->load('categories')
-            ->only([
-                'title',
-                'body',
-                'slug',
-                'thumbnail',
-                'published_at',
-                "categories"
+        $post = Post::where('slug', "=", $slug)
+            ->with('categories')
+            ->orderByDesc('published_at')
+            ->limit(5)
+            ->paginate(4)
+            ->map(fn ($post) => [
+                "title" => $post->title,
+                "slug" => $post->slug,
+                "thumbnail" => $post->getThumbnail(),
+                "body" => $post->body,
+                "published_at" => $post->published_at,
+                "categories" => $post->categories
             ]);
+
+            // ->map(fn ($post) => [
+            //     "title" => $post->title,
+            //     "slug" => $post->slug,
+            //     "thumbnail" => $post->getThumbnail(),
+            //     "body" => $post->body,
+            //     "published_at" => $post->published_at,
+            //     "categories" => $post->categories
+            // ]);
+            // ->only([
+            //     'title',
+            //     'body',
+            //     'slug',
+            //     'thumbnail',
+            //     'published_at',
+            //     "categories"
+            // ])
+
+        ;
 
         $recent_posts = Post::where('active', "=", true)
             ->whereDate('published_at', "<", Carbon::now())
@@ -79,14 +100,12 @@ class PostController extends Controller
             ->paginate(4)
             ->map(fn ($post) => [
                 "title" => $post->title,
-                "excerpt" => $post->excerpt,
                 "slug" => $post->slug,
-                "thumbnail" => $post->thumbnail,
+                "thumbnail" => $post->getThumbnail(),
                 "body" => $post->body,
                 "published_at" => $post->published_at,
                 "categories" => $post->categories
             ]);
-
 
         return Inertia::render('Home/Post', [
             'post' => $post,

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
@@ -25,15 +26,9 @@ class Post extends Model
     protected static function boot()
     {
         parent::boot();
-
-        // Generating excerpt before creating the post
-        static::creating(function ($post) {
-            // Strip HTML tags from the body before creating the excerpt
-            $excerpt = strip_tags($post->body);
-            // Trim the excerpt to desired length
-            $post->excerpt = substr($excerpt, 0, 750); // Adjust the length of excerpt as needed
-        });
     }
+
+
 
     public function user()
     {
@@ -43,5 +38,19 @@ class Post extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_post');
+    }
+
+    public function excerpt(): string
+    {
+        return Str::words(strip_tags($this->body), 50);
+    }
+
+    public function getThumbnail()
+    {
+        if (str_starts_with($this->thumbnail, "http")) {
+            return $this->thumbnail;
+        }
+        //  "/storage/" . $this->thumbnail
+        return asset("/storage/" . $this->thumbnail);
     }
 }
