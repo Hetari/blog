@@ -19,12 +19,13 @@
             </p>
 
             <Link
-                :href="`posts/${post.slug}`"
-                class="flex justify-center items-start"
+                :href="`${post.slug}`"
+                class="flex justify-between items-start w-full"
             >
-                <h3 class="text-2xl font-semibold cursor-pointer">
-                    {{ post.title }}
-                </h3>
+                <h3
+                    class="text-2xl font-semibold cursor-pointer"
+                    v-html="post.title"
+                ></h3>
                 <span class="pt-3">
                     <svg
                         class="theme stroke-current"
@@ -68,8 +69,8 @@
 </template>
 
 <script setup>
-import { formatPublishedDate } from "@/functions";
 import CategoryBadge from "./CategoryBadge.vue";
+import { formatPublishedDate } from "@/functions";
 
 const props = defineProps({
     post: {

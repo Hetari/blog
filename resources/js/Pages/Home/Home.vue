@@ -8,9 +8,18 @@
         <RecentBlogPosts :posts="posts.data.slice(0, 4)" />
     </div>
 
+    <!-- TODO: Add animation here -->
+    <p
+        v-else
+        class="padding-t text-center text-red-500 dark:text-gray-400 text-lg"
+    >
+        There are no posts available.
+    </p>
+
     <div class="padding" v-if="posts.data.length >= 5">
         <BlogPosts :posts="posts.data.slice(4)" />
     </div>
+
     <div class="padding">
         <Footer :links="posts.links" :isDataFond="posts.data.length > 0" />
     </div>

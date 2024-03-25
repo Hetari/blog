@@ -1,5 +1,5 @@
 <template>
-    <main class="theme relative">
+    <main class="theme relative min-h-screen">
         <Nav />
         <slot />
     </main>

@@ -1,5 +1,6 @@
 <template>
     <Head title="Post" />
+
     <section class="padding grid gap-10 sm:grid-cols-1 md:grid-cols-[1fr_2fr]">
         <div
             class="justify-center items-center place-items-center space-y-10 max-md:hidden"
@@ -8,12 +9,12 @@
                 :showAllExcerpt="true"
                 v-for="post in recent_posts"
                 :key="post.slug"
-                :post="post"
+                :post="post[0]"
             />
         </div>
 
         <div class="space-y-20">
-            <PostCard :showPost="true" :post="post" />
+            <PostCard :showPost="true" :post="post[0]" />
             <PostFooter />
         </div>
     </section>
@@ -34,10 +35,6 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-});
-
-const shouldHideOnMobile = computed(() => {
-    return window.innerWidth <= 640;
 });
 </script>
 
