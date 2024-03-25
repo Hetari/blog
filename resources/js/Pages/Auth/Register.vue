@@ -6,7 +6,7 @@
             <Hero class="mb-10 p-1 dark:text-neutral-100" text="register" />
         </Link>
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" class="space-y-4">
             <div>
                 <InputLabel for="name" value="Name" />
 
@@ -23,7 +23,23 @@
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
-            <div class="mt-4">
+            <div>
+                <InputLabel for="username" value="Username" />
+
+                <TextInput
+                    id="username"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.username"
+                    required
+                    autofocus
+                    autocomplete="username"
+                />
+
+                <InputError class="mt-2" :message="form.errors.name" />
+            </div>
+
+            <div>
                 <InputLabel for="email" value="Email" />
 
                 <TextInput
@@ -38,7 +54,7 @@
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <div class="mt-4">
+            <div>
                 <InputLabel for="password" value="Password" />
 
                 <TextInput
@@ -53,7 +69,7 @@
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="mt-4">
+            <div>
                 <InputLabel
                     for="password_confirmation"
                     value="Confirm Password"
@@ -104,6 +120,7 @@ import { Hero } from "@/Pages/Home/Partials";
 
 const form = useForm({
     name: "",
+    username: "",
     email: "",
     password: "",
     password_confirmation: "",
