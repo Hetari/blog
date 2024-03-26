@@ -4,6 +4,16 @@
         <Hero text="the blog" />
     </div>
 
+    <div class="padding-x padding-t flex justify-between items-center">
+        <h3 class="text-2xl font-semibold">Recent blog posts</h3>
+        <input
+            type="text"
+            class="input-filed bg-red-100"
+            placeholder="Search..."
+            v-model="search"
+        />
+    </div>
+
     <div class="padding-x padding-t" v-if="posts.data.length >= 1">
         <RecentBlogPosts :posts="posts.data.slice(0, 4)" />
     </div>
@@ -30,11 +40,26 @@ import { UserLayout } from "@/Layouts";
 import { Head } from "@inertiajs/vue3";
 import { Hero, RecentBlogPosts, BlogPosts } from "./Partials";
 import { Footer } from "@/Components";
+import { ref, watch } from "vue";
+import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
     posts: {
         type: Object,
     },
+});
+
+// get the search flitter from the query string
+let params = new URLSearchParams(window.location.search);
+let search = ref(params.get("search"));
+
+watch(search, (value) => {
+    router.get(
+        "/",
+        { search: value },
+        { preserveState: true },
+        { replace: true }
+    );
 });
 </script>
 

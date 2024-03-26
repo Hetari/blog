@@ -35,9 +35,25 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::query()
-            ->when(Request::input('search'), function ($query, $search) {
-                $query->where('body', 'Like', "%{$search}%");
-            })
+            ->when(
+                Request::input('search'),
+                fn ($query, $search) => $query
+                    ->where(
+                        fn ($query) => $query
+                            // search by the post body
+                            ->where('body', 'like', "%{$search}%")
+
+                            // search by the author name
+                            ->orWhereHas('user', fn ($query) => $query->where('name', 'like', "%{$search}%"))
+
+                            // search by the category title
+                            ->orWhereHas(
+                                'categories',
+                                fn ($query) =>
+                                $query->where('title', 'like', "%{$search}%")
+                            )
+                    )
+            )
             ->where('active', "=", true)
             ->whereDate('published_at', "<=", Carbon::now())
             ->with('categories')

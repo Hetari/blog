@@ -21,15 +21,15 @@
         <div class="flex-1 max-sm:mt-3">
             <div :class="mdAspect ? 'my-3' : 'm-0 p-0'">
                 <p class="font-semibold text-[#6941C6] dark:text-[#a47cff]">
-                    <time class="">
-                        {{ formatPublishedDate(post.published_at) }}
-                    </time>
-                    by
                     <Link
                         :href="`users/${post.user.username}`"
                         class="capitalize"
-                        v-html="post.user.name"
-                    ></Link>
+                    >
+                        <time>
+                            {{ formatPublishedDate(post.published_at) }}
+                        </time>
+                        by {{ post.user.name }}
+                    </Link>
                 </p>
             </div>
 
