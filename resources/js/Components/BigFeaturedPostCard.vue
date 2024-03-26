@@ -14,7 +14,7 @@
             <div class="max-lg:mt-3">
                 <p class="font-semibold text-[#6941C6] dark:text-[#a47cff]">
                     <Link
-                        :href="`users/${post.user.username}`"
+                        :href="`/users/${post.user.username}`"
                         class="capitalize"
                     >
                         <time>

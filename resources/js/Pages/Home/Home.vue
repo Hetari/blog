@@ -52,10 +52,12 @@ const props = defineProps({
 // get the search flitter from the query string
 let params = new URLSearchParams(window.location.search);
 let search = ref(params.get("search"));
-
+params.forEach((para) => {
+    console.log(para);
+});
 watch(search, (value) => {
     router.get(
-        "/",
+        params,
         { search: value },
         { preserveState: true },
         { replace: true }

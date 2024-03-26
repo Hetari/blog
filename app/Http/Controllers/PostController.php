@@ -109,6 +109,7 @@ class PostController extends Controller
                 "slug" => $post->slug,
                 "thumbnail" => $post->getThumbnail(),
                 "body" => $post->body,
+                'excerpt' => $post->excerpt(),
                 "published_at" => $post->published_at,
                 "categories" => $post->categories,
                 "user" => $this->sanitizeUserData($post->user)
@@ -127,8 +128,21 @@ class PostController extends Controller
     public function userPosts(string $username)
     {
         $user = User::where('username', "=", $username)->first();
-
         $posts = Post::where('user_id', "=", $user->id)
+            ->when(
+                Request::input('search'),
+                fn ($query, $search) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->where('body', 'like', "%{$search}%")
+
+                            ->orWhereHas(
+                                'categories',
+                                fn ($query) =>
+                                $query->where('title', 'like', "%{$search}%")
+                            )
+                    )
+            )
             ->where('active', "=", true)
             ->whereDate('published_at', "<=", Carbon::now())
             ->with('categories')
@@ -140,6 +154,7 @@ class PostController extends Controller
                 "slug" => $post->slug,
                 "thumbnail" => $post->getThumbnail(),
                 "body" => $post->body,
+                'excerpt' => $post->excerpt(),
                 "published_at" => $post->published_at,
                 "categories" => $post->categories,
                 "user" => $this->sanitizeUserData($post->user)

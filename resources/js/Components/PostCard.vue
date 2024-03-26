@@ -13,7 +13,7 @@
             }"
         >
             <p class="font-semibold text-[#6941C6] dark:text-[#a47cff]">
-                <Link :href="`users/${post.user.username}`" class="capitalize">
+                <Link :href="`/users/${post.user.username}`" class="capitalize">
                     <time>
                         {{ formatPublishedDate(post.published_at) }}
                     </time>
