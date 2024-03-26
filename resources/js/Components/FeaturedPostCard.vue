@@ -66,7 +66,7 @@
                 v-html="post.excerpt"
             ></p>
 
-            <div class="pt-3 flex justify-start items-center gap-3">
+            <div class="pt-3 grid grid-cols-3 gap-3">
                 <!-- TODO: make a costume color for each category -->
                 <CategoryBadge
                     v-for="category in post.categories"

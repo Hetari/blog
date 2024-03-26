@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -34,11 +34,16 @@ class PostController extends Controller
     // TODO: use cache here, and others controllers.
     public function index()
     {
-        $posts = Post::where('active', "=", true)
+        $posts = Post::query()
+            ->when(Request::input('search'), function ($query, $search) {
+                $query->where('body', 'Like', "%{$search}%");
+            })
+            ->where('active', "=", true)
             ->whereDate('published_at', "<=", Carbon::now())
             ->with('categories')
             ->orderByDesc('published_at')
             ->paginate(16)
+            ->withQueryString()
             ->onEachSide(2)
             ->through(fn ($post) => [
                 "title" => $post->title,

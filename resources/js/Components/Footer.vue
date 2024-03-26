@@ -24,6 +24,7 @@
                     class="size-10 relative rounded-lg bg-ghostwhite-200 overflow-hidden shrink-0 text-primary-600"
                     :class="{
                         'bg-violet-100 dark:bg-neutral-700': link.active,
+                        'bg-neutral-100 dark:bg-neutral-800': !link.active,
                     }"
                     :href="link.url"
                 >
@@ -34,7 +35,7 @@
                             class="relative leading-[20px] font-medium"
                             :class="{
                                 'text-violet-700 dark:text-white': link.active,
-                                'text-gray-200 dark:text-gray-200':
+                                'text-gray-500 dark:text-gray-200':
                                     !link.active,
                             }"
                         >
