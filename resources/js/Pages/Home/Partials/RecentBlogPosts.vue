@@ -9,10 +9,9 @@
                 v-for="(post, index) in posts.slice(0, 3)"
                 :key="post.id"
                 :class="{
-                    'md:col-span-2': index === 0, // Apply this class only to the first post
-                    'xl:col-span-1  lg:col-span-2': index !== 0, // Apply this class to all posts
-                    'xl:row-span-2': index === 0, // Apply this class only to the first post
-                    'xl:row-span-1': index !== 0, // Apply this class to all posts except the first one
+                    'md:col-span-2 xl:row-span-2': index === 0, // Apply this class only to the first post
+                    'xl:col-span-1 max-sm:col-span-2 sm:col-span-2':
+                        index !== 0, // Apply this class to all posts
                 }"
                 :mdAspect="index === 0"
                 :post="post"

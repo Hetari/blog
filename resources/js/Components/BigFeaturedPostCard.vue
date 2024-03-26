@@ -12,10 +12,16 @@
 
         <div class="space-y-3 xl:ml-10 h-full">
             <div class="max-lg:mt-3">
-                <p class="text-[#6941C6] dark:text-[#a47cff] font-semibold">
-                    <time>
+                <p class="font-semibold text-[#6941C6] dark:text-[#a47cff]">
+                    <time class="">
                         {{ formatPublishedDate(post.published_at) }}
                     </time>
+                    by
+                    <Link
+                        :href="`users/${post.user.username}`"
+                        class="capitalize"
+                        v-html="post.user.name"
+                    ></Link>
                 </p>
             </div>
 

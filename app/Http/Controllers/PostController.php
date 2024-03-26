@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,21 @@ use function PHPSTORM_META\type;
 
 class PostController extends Controller
 {
+    /**
+     * Sanitizes user data by returning non-sensitive attributes.
+     *
+     * @param User $user The user object to sanitize
+     * @return array The sanitized user data
+     */
+    public function sanitizeUserData(User $user)
+    {
+        return [
+            'name' => $user->name,
+            'username' => $user->username,
+            'email' => $user->email,
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -31,7 +47,8 @@ class PostController extends Controller
                 "body" => $post->body,
                 'excerpt' => $post->excerpt(),
                 "published_at" => $post->published_at,
-                "categories" => $post->categories
+                "categories" => $post->categories,
+                "user" => $this->sanitizeUserData($post->user)
             ]);
 
         return Inertia::render('Home/Home', [
@@ -56,7 +73,8 @@ class PostController extends Controller
                 "thumbnail" => $post->getThumbnail(),
                 "body" => $post->body,
                 "published_at" => $post->published_at,
-                "categories" => $post->categories
+                "categories" => $post->categories,
+                "user" => $this->sanitizeUserData($post->user)
             ]);
 
         $recent_posts = Post::where('active', "=", true)
@@ -71,7 +89,8 @@ class PostController extends Controller
                 "thumbnail" => $post->getThumbnail(),
                 "body" => $post->body,
                 "published_at" => $post->published_at,
-                "categories" => $post->categories
+                "categories" => $post->categories,
+                "user" => $this->sanitizeUserData($post->user)
             ]);
 
         if ($post->isEmpty()) {
@@ -81,6 +100,33 @@ class PostController extends Controller
         return Inertia::render('Home/Post', [
             'post' => $post,
             'recent_posts' => $recent_posts,
+        ]);
+    }
+
+    public function userPosts(string $username)
+    {
+        $user = User::where('username', "=", $username)->first();
+
+        $posts = Post::where('user_id', "=", $user->id)
+            ->where('active', "=", true)
+            ->whereDate('published_at', "<=", Carbon::now())
+            ->with('categories')
+            ->orderByDesc('published_at')
+            ->paginate()
+            ->onEachSide(2)
+            ->through(fn ($post) => [
+                "title" => $post->title,
+                "slug" => $post->slug,
+                "thumbnail" => $post->getThumbnail(),
+                "body" => $post->body,
+                "published_at" => $post->published_at,
+                "categories" => $post->categories,
+                "user" => $this->sanitizeUserData($post->user)
+
+            ]);
+
+        return Inertia::render('Home/Home', [
+            'posts' => $posts
         ]);
     }
 }
