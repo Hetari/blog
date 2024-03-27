@@ -71,7 +71,8 @@
                 <CategoryBadge
                     v-for="category in post.categories"
                     :key="category.id"
-                    class="bg-purple-100 text-purple-800 hover:bg-purple-500"
+                    :bgColor="category.bg_color"
+                    :textColor="category.text_color"
                 >
                     <Link
                         v-html="category.title"

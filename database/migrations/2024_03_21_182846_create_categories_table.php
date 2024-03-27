@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title', 2048);
             $table->string('slug', 2048);
+            $table->string('bg_color', 255)->unique();
+            $table->string('text_color', 255)->unique();
             $table->timestamps();
             $table->softDeletes();
         });
