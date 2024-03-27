@@ -17,7 +17,7 @@
                     <time>
                         {{ formatPublishedDate(post.published_at) }}
                     </time>
-                    by {{ post.user.name }}
+                    by <span class="underline">{{ post.user.name }} </span>
                 </Link>
             </p>
 
@@ -57,7 +57,7 @@
             ></p>
         </div>
 
-        <div class="pt-3 grid grid-cols-3 gap-3">
+        <div class="pt-3 inline-grid grid-cols-3 gap-3">
             <!-- TODO: make a costume color for each category -->
             <CategoryBadge
                 v-for="category in post.categories"

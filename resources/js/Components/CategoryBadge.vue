@@ -31,6 +31,6 @@ const props = defineProps({
 });
 
 const getColor = computed(() => {
-    return colorVariants[props.bgColor] || colorVariants["gray"];
+    return colorVariants[props.color] || colorVariants["gray"];
 });
 </script>
