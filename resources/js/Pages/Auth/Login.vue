@@ -69,6 +69,14 @@
                 </PrimaryButton>
             </div>
         </form>
+        <div class="flex items-center justify-center mt-12">
+            <p>
+                You don't have account?
+                <Link :href="route('register')" class="underline">
+                    Create new one.
+                </Link>
+            </p>
+        </div>
     </GuestLayout>
 </template>
 <script setup>

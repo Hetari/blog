@@ -5,12 +5,7 @@
             'flex-col items-center justify-around h-dvh py-px': showMenu,
         }"
     >
-        <h1
-            class="text-xl font-semibold self-center"
-            :class="{ 'pt-20': showMenu }"
-        >
-            Blogy
-        </h1>
+        <h1 class="text-xl font-semibold self-center">Blogy</h1>
 
         <div
             class="md:block md:w-auto lg:w-3/5 self-center"
@@ -47,12 +42,50 @@
                 </li>
 
                 <li v-else>
-                    <Link
-                        href="/dashboard"
-                        class="px-4 py-2 transition rounded-xl text-white m-0 bg-black dark:bg-neutral-700 hover:bg-neutral-700 dark:hover:bg-neutral-600"
-                    >
-                        {{ canLogin.name }}
-                    </Link>
+                    <div class="relative">
+                        <Dropdown
+                            contentClasses="bg-neutral-50 dark:bg-neutral-700 py-1 rounded-xl"
+                            align="right"
+                            width="48"
+                        >
+                            <template #trigger>
+                                <span class="inline-flex rounded-md">
+                                    <button
+                                        type="button"
+                                        class="inline-flex items-center px-3 py-2 text-sm leading-4 font-medium focus:outline-none transition ease-in-out duration-150 rounded-xl text-white bg-black dark:bg-neutral-700 hover:bg-neutral-700 dark:hover:bg-neutral-600"
+                                    >
+                                        {{ $page.props.auth.user.name }}
+
+                                        <svg
+                                            class="ms-2 -me-0.5 h-4 w-4"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                        >
+                                            <path
+                                                fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                    </button>
+                                </span>
+                            </template>
+
+                            <template #content>
+                                <DropdownLink :href="route('profile.edit')">
+                                    Profile
+                                </DropdownLink>
+                                <DropdownLink
+                                    :href="route('logout')"
+                                    method="post"
+                                    as="button"
+                                >
+                                    Log Out
+                                </DropdownLink>
+                            </template>
+                        </Dropdown>
+                    </div>
                 </li>
 
                 <div
@@ -144,10 +177,7 @@
             <svg
                 v-if="showMenu"
                 class="fill-current"
-                :class="
-                    (isDarkMode ? 'text-white' : 'text-black',
-                    showMenu ? 'absolute bottom-[53px] -translate-x-2/4' : '')
-                "
+                :class="isDarkMode ? 'text-white' : 'text-black'"
                 width="32"
                 height="32"
                 viewBox="0 0 32 32"
@@ -169,6 +199,8 @@ import { onBeforeMount, ref, watch } from "vue";
 import { navLinks, authLinks } from "@/constants";
 import { useDark, useToggle } from "@vueuse/core";
 import { useAutoAnimate } from "@formkit/auto-animate/vue";
+
+import { Dropdown, DropdownLink } from "@/Components";
 
 const props = defineProps({
     canLogin: {
