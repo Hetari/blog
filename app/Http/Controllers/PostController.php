@@ -40,8 +40,9 @@ class PostController extends Controller
                 fn ($query, $search) => $query
                     ->where(
                         fn ($query) => $query
-                            // search by the post body
+                            // search by the post body or title
                             ->where('body', 'like', "%{$search}%")
+                            ->orWhere('title', 'like', "%{$search}%")
 
                             // search by the author name
                             ->orWhereHas('user', fn ($query) => $query->where('name', 'like', "%{$search}%"))
@@ -69,7 +70,7 @@ class PostController extends Controller
                 'excerpt' => $post->excerpt(),
                 "published_at" => $post->published_at,
                 "categories" => $post->categories,
-                "user" => $this->sanitizeUserData($post->user)
+                "user" => $this->sanitizeUserData($post->user),
             ]);
 
         return Inertia::render('Home/Home', [
@@ -95,7 +96,9 @@ class PostController extends Controller
                 "body" => $post->body,
                 "published_at" => $post->published_at,
                 "categories" => $post->categories,
-                "user" => $this->sanitizeUserData($post->user)
+                "user" => $this->sanitizeUserData($post->user),
+                "meta_title" => $post->meta_title,
+                "meta_description" => $post->meta_description,
             ]);
 
         $recent_posts = Post::where('active', "=", true)

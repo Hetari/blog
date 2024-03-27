@@ -8,12 +8,10 @@ import { ZiggyVue } from "../../vendor/tightenco/ziggy";
 import { Link } from "@inertiajs/vue3";
 const appName = import.meta.env.VITE_APP_NAME || "Blog";
 
-// Vue 3 Element Plus
-import ElementPlus from "element-plus";
-import "element-plus/dist/index.css";
+import { createHead } from "@vueuse/head";
+const head = createHead();
 
 createInertiaApp({
-    title: (title) => `${appName} - ${title}`,
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.vue`,
@@ -23,7 +21,7 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
-            .use(ElementPlus)
+            .use(head)
             .component("Link", Link)
             .mount(el);
     },

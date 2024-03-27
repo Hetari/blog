@@ -74,6 +74,13 @@ class PostResource extends Resource
                             ->relationship('categories', 'title')
                             ->required(),
                     ]),
+                Grid::make([
+                    "default" => 2
+                ])->schema([
+                    Forms\Components\TextInput::make('meta_title'),
+                    Forms\Components\TextInput::make('meta_description'),
+                ]),
+
                 Forms\Components\Toggle::make('active')
                     ->required()
                     ->label('Show on site?'),
