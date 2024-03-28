@@ -77,6 +77,8 @@
                                     Profile
                                 </DropdownLink>
                                 <DropdownLink
+                                    id="confirmLogout"
+                                    @click.prevent="confirmLogout"
                                     :href="route('logout')"
                                     method="post"
                                     as="button"
@@ -256,4 +258,12 @@ watch(isDarkMode, () => {
 
 // Initialize useAutoAnimate
 const [parent] = useAutoAnimate();
+
+function confirmLogout() {
+    if (!confirm("Are you sure you want to log out?")) {
+        return;
+    }
+
+    document.getElementById("logout-form").submit();
+}
 </script>
