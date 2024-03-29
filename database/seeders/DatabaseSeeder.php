@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,20 +31,33 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $users = User::factory(10)->create();
-        $categories = Category::factory(10)->create();
-        $posts = Post::factory(50)->create();
+        // $users = User::factory(10)->create();
+        // $categories = Category::factory(10)->create();
+        // $posts = Post::factory(50)->create();
 
-        // Associate each post with one or more categories
-        foreach ($posts as $post) {
-            $post->user_id = $this->getRandomUser($users);
+        // // Associate each post with one or more categories
+        // foreach ($posts as $post) {
+        //     $post->user_id = $this->getRandomUser($users);
 
-            // Randomly select a few categories for each post
-            $categoriesForPost = $categories->random(mt_rand(1, 3));
+        //     // Randomly select a few categories for each post
+        //     $categoriesForPost = $categories->random(mt_rand(1, 3));
 
 
-            // Attach categories to the post
-            $post->categories()->attach($categoriesForPost);
-        }
+        //     // Attach categories to the post
+        //     $post->categories()->attach($categoriesForPost);
+        // }
+
+        $adminUser = User::factory()->create([
+            'email' => 'admin@example.com',
+            'name' => 'Admin',
+            'username' => 'admin',
+            'password' => bcrypt('admin'),
+        ]);
+
+        $adminRole = Role::create([
+            'name' => 'admin',
+        ]);
+
+        $adminUser->assignRole($adminRole);
     }
 }
