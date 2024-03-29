@@ -4,10 +4,6 @@ const navLinks = [
         path: "/",
     },
     {
-        name: "Projects",
-        path: "/projects",
-    },
-    {
         name: "About",
         path: "/about",
     },
@@ -122,6 +118,5 @@ const colorVariants = {
         "bg-zinc-900",
     ],
 };
-
 
 export { navLinks, authLinks, colorVariants };
