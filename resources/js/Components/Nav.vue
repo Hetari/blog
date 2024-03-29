@@ -20,7 +20,7 @@
                         :href="link.path"
                         :class="{
                             'font-semibold underline underline-offset-[5px]':
-                                $page.url === link.path,
+                                $page.url.split('?')[0] == link.path,
                         }"
                         >{{ link.name }}
                     </Link>
@@ -266,4 +266,6 @@ function confirmLogout() {
 
     document.getElementById("logout-form").submit();
 }
+
+let params = new URLSearchParams(window.location.search);
 </script>

@@ -8,6 +8,7 @@
                 <Component
                     :is="links[0].url ? 'Link' : 'span'"
                     class="flex flex-row items-center justify-center gap-2 dark:text-gray-200"
+                    :class="links[0].url ? '' : 'cursor-not-allowed'"
                     v-html="cleanLabel(links[0].label)"
                     :href="links[0].url"
                 />
@@ -49,6 +50,9 @@
                 <Component
                     :is="links[links.length - 1].url ? 'Link' : 'span'"
                     class="flex flex-row items-center justify-center gap-2 dark:text-gray-200"
+                    :class="
+                        links[links.length - 1].url ? '' : 'cursor-not-allowed'
+                    "
                     v-html="cleanLabel(links[links.length - 1].label)"
                     :href="links[links.length - 1].url"
                 />
