@@ -71,7 +71,7 @@
 const props = defineProps({
     links: {
         type: Array,
-        required: true,
+        default: [],
     },
     isDataFond: {
         type: Boolean,
@@ -99,10 +99,4 @@ function cleanLabel(label) {
     }
     return text;
 }
-
-function isNumeric(value) {
-    return !isNaN(parseFloat(value)) && isFinite(value);
-}
-
-const pureLinks = props.links.filter((link) => isNumeric(link.label));
 </script>

@@ -39,3 +39,8 @@ Route::get('/categories/{category:slug}', [CategoryController::class, 'index'])-
 
 // Users routes
 Route::get('/users/{user:username}', [PostController::class, 'userPosts'])->name('users.posts');
+
+// About route
+Route::get('/about', function () {
+    return Inertia::render('About/About', []);
+});

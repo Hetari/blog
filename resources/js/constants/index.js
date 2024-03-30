@@ -119,4 +119,34 @@ const colorVariants = {
     ],
 };
 
-export { navLinks, authLinks, colorVariants };
+const aboutMe = [
+    {
+        title: "Skills:",
+        items: [
+            "Extensive experience in UI design, with a strong portfolio of completed projects",
+            "Proficiency in design tools such as Adobe Creative Suite and Sketch",
+            "Excellent visual design skills, with a strong understanding of layout, color theory, and typography",
+            "Ability to create wireframes and prototypes to communicate design concepts",
+            "Strong communication and collaboration skills, with the ability to work effectively with cross-functional teams",
+            "Experience conducting user research and gathering insights to inform design decisions",
+            "Proficiency in HTML, CSS, and JavaScript",
+        ],
+    },
+    {
+        title: "Experience:",
+        items: [
+            "5 years of experience as a UI designer, working on a variety of projects for clients in the tech and retail industries",
+            "Led the design of a successful e-commerce website, resulting in a 25% increase in online sales",
+            "Created wireframes and prototypes for a mobile banking app, leading to a 20% increase in app usage",
+            "Conducted user research and usability testing to inform the redesign of a healthcare provider's website, resulting in a 15% increase in website traffic",
+        ],
+    },
+    {
+        title: "Education:",
+        items: [
+            "Bachelor's degree in Graphic Design",
+            "Certified User Experience Designer (CUED)",
+        ],
+    },
+];
+export { navLinks, authLinks, colorVariants, aboutMe };

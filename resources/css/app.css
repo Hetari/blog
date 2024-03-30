@@ -47,6 +47,10 @@
     overflow: hidden;
 }
 
+body {
+    font-family: "Inter" !important;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
