@@ -58,11 +58,11 @@
             </div>
 
             <div class="pt-3 inline-grid grid-cols-3 gap-3">
-                <!-- TODO: make a costume color for each category -->
                 <CategoryBadge
                     v-for="category in post.categories"
                     :key="category.id"
                     :href="`categories/${category.slug}`"
+                    :color="category.color"
                 >
                     <Link
                         v-html="category.title"

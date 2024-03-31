@@ -34,6 +34,7 @@ class PostController extends Controller
     // TODO: use cache here, and others controllers.
     public function index()
     {
+
         $posts = Post::query()
             ->when(
                 Request::input('search'),
@@ -56,7 +57,8 @@ class PostController extends Controller
                     )
             )
             ->where('active', "=", true)
-            ->whereDate('published_at', "<=", Carbon::now())
+            // Todo: fix this to use published_at
+            // ->whereDate('published_at', "=", Carbon::now())
             ->with('categories')
             ->orderByDesc('published_at')
             ->paginate(16)

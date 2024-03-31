@@ -59,13 +59,11 @@
 
         <div class="w-full flex items-center justify-between">
             <div class="inline-grid grid-cols-3 gap-3">
-                <!-- TODO: make a costume color for each category -->
                 <CategoryBadge
                     v-for="category in post.categories"
                     :key="category.id"
                     :href="`categories/${category.slug}`"
-                    :bgColor="category.bg_color"
-                    :textColor="category.text_color"
+                    :color="category.color"
                 >
                     <Link
                         v-html="category.bg_color"
