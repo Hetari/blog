@@ -20,7 +20,6 @@
 
 <script setup>
 import { reactive, computed } from "vue";
-import { Head } from "@inertiajs/vue3";
 import { useHead } from "@vueuse/head";
 
 import { UserLayout } from "@/Layouts";

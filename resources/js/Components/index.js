@@ -5,11 +5,9 @@ import FeaturedPostCard from "@/Components/FeaturedPostCard.vue";
 import CategoryBadge from "@/Components/CategoryBadge.vue";
 import BigFeaturedPostCard from "@/Components/BigFeaturedPostCard.vue";
 import PostCard from "@/Components/PostCard.vue";
-
-// !
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
-// !
+import UpDownLike from "@/Components/UpDownLike.vue";
 
 export {
     Nav,
@@ -21,4 +19,5 @@ export {
     PostCard,
     Dropdown,
     DropdownLink,
+    UpDownLike,
 };

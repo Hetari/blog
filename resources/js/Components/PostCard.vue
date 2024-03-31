@@ -57,21 +57,26 @@
             ></p>
         </div>
 
-        <div class="pt-3 inline-grid grid-cols-3 gap-3">
-            <!-- TODO: make a costume color for each category -->
-            <CategoryBadge
-                v-for="category in post.categories"
-                :key="category.id"
-                :href="`categories/${category.slug}`"
-                :bgColor="category.bg_color"
-                :textColor="category.text_color"
-            >
-                <Link
-                    v-html="category.bg_color"
+        <div class="w-full flex items-center justify-between">
+            <div class="inline-grid grid-cols-3 gap-3">
+                <!-- TODO: make a costume color for each category -->
+                <CategoryBadge
+                    v-for="category in post.categories"
+                    :key="category.id"
                     :href="`categories/${category.slug}`"
+                    :bgColor="category.bg_color"
+                    :textColor="category.text_color"
                 >
-                </Link>
-            </CategoryBadge>
+                    <Link
+                        v-html="category.bg_color"
+                        :href="`categories/${category.slug}`"
+                    >
+                    </Link>
+                </CategoryBadge>
+            </div>
+            <div v-if="showPost" class="">
+                <UpDownLike :likes="Likes" />
+            </div>
         </div>
     </div>
 </template>
@@ -79,6 +84,7 @@
 <script setup>
 import CategoryBadge from "./CategoryBadge.vue";
 import { formatPublishedDate } from "@/functions";
+import { UpDownLike } from "@/Components";
 
 const props = defineProps({
     post: {
@@ -92,6 +98,10 @@ const props = defineProps({
     showPost: {
         type: Boolean,
         default: false,
+    },
+    Likes: {
+        type: Number,
+        default: 0,
     },
 });
 </script>

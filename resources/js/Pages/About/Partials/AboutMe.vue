@@ -23,7 +23,7 @@
             class="flex flex-1 flex-col justify-start items-start gap-4"
         >
             <h1 class="text-2xl font-semibold">{{ section.title }}</h1>
-            <ul class="space-y-1">
+            <ul class="space-y-1 px-10">
                 <li
                     v-for="(item, itemIndex) in section.items"
                     :key="itemIndex"
