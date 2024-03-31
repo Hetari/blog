@@ -16,20 +16,22 @@
         <div
             class="padding-t space-y-4 flex-col justify-around items-center gap-10"
         >
-            <div class="flex gap-10">
+            <form class="flex gap-10">
                 <input
                     id="email"
                     name="email"
                     type="email"
                     class="input-filed w-3/5"
                     placeholder="Enter your email"
+                    v-model="form.email"
                 />
                 <button
                     class="py-2 px-4 rounded-lg bg-[#6941C6] dark:bg-[#a47cff] transition-all duration-200 ease-in-out hover:bg-[#491cb3] dark:hover:bg-[#6941C6] text-white hover:scale-[0.98] focus:outline-none"
+                    type="submit"
                 >
                     Subscribe now
                 </button>
-            </div>
+            </form>
 
             <div>
                 <p class="text-neutral-300 text-sm font-normal leading-tight">
@@ -44,4 +46,14 @@
     </footer>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import { router } from "@inertiajs/vue3";
+let form = ref({
+    email: "",
+});
+
+const submit = () => {
+    // router.post("/subscribe", form);
+};
+</script>
