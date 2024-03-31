@@ -22,6 +22,9 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Content';
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -38,14 +41,36 @@ class CategoryResource extends Resource
                         $set('slug', Str::slug($state));
                     }),
                 Forms\Components\TextInput::make('slug')
-                    ->required()
+                    ->hint('Automatically generated')
                     ->maxLength(2048),
-                Forms\Components\TextInput::make('bg_color')
+                Forms\Components\Select::make('color')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('text_color')
-                    ->required()
-                    ->maxLength(255),
+                    ->searchable()
+                    ->options([
+                        "amber" => "amber",
+                        "blue" => "blue",
+                        "cyan" => "cyan",
+                        "indigo" => "indigo",
+                        "emerald" => "emerald",
+                        "fuchsia" => "fuchsia",
+                        "gray" => "gray",
+                        "green" => "green",
+                        "indigo" => "indigo",
+                        "lime" => "lime",
+                        "neutral" => "neutral",
+                        "orange" => "orange",
+                        "purple" => "purple",
+                        "pink" => "pink",
+                        "red" => "red",
+                        "rose" => "rose",
+                        "sky" => "sky",
+                        "slate" => "slate",
+                        "stone" => "stone",
+                        "teal" => "teal",
+                        "violet" => "violet",
+                        "yellow" => "yellow",
+                        "zinc" => "zinc",
+                    ]),
             ]);
     }
 
@@ -57,9 +82,7 @@ class CategoryResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('bg_color')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('text_color')
+                Tables\Columns\TextColumn::make('color')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

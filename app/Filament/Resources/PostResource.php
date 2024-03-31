@@ -49,6 +49,7 @@ class PostResource extends Resource
                             }),
                         Forms\Components\TextInput::make('slug')
                             ->hint('Automatically generated')
+                            ->required()
                             ->maxLength(2048),
                     ]),
                 Grid::make(1)->schema([
