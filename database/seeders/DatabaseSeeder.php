@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use Carbon\Carbon;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -26,26 +27,34 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $user = User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
 
-        // $users = User::factory(10)->create();
-        // $categories = Category::factory(10)->create();
-        // $posts = Post::factory(50)->create();
+        $category = Category::factory()->create([
+            'title' => 'test',
+            'slug' => 'test',
+            'color' => 'red'
+        ]);
 
-        // // Associate each post with one or more categories
-        // foreach ($posts as $post) {
-        //     $post->user_id = $this->getRandomUser($users);
+        $post = Post::factory()->create([
+            'title' => 'test',
+            'slug' => 'test',
+            'thumbnail' => 'https://picsum.photos/200/300',
+            'body' => 'test body',
+            'active' => true,
+            'user_id' => $user->id,
+            'published_at' => Carbon::now(),
+            'meta_title' => 'test',
+            'meta_description' => 'test',
+        ]);
 
-        //     // Randomly select a few categories for each post
-        //     $categoriesForPost = $categories->random(mt_rand(1, 3));
+        Post::factory(2)->create();
 
 
-        //     // Attach categories to the post
-        //     $post->categories()->attach($categoriesForPost);
-        // }
+
+        $post->categories()->attach($category);
 
         $adminUser = User::factory()->create([
             'email' => 'admin@example.com',

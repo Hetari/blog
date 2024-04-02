@@ -11,6 +11,7 @@ class UpDownLike extends Model
 
     protected $fillable = [
         'is_like',
+        'is_dislike',
         'post_id',
         'user_id',
     ];

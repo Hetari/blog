@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('up_down_likes', function (Blueprint $table) {
             $table->id();
             $table->boolean("is_like");
+            $table->boolean("is_dislike");
             $table->foreignId("post_id")->references("id")->on("posts")->cascadeOnDelete();
             $table->foreignId("user_id")->references("id")->on("users")->cascadeOnDelete();
             $table->timestamps();

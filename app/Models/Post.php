@@ -42,6 +42,11 @@ class Post extends Model
         return $this->belongsToMany(Category::class, 'category_post');
     }
 
+    public function likes()
+    {
+        return $this->hasMany(UpDownLike::class);
+    }
+
     public function excerpt(): string
     {
         return Str::words(strip_tags($this->body), 50);

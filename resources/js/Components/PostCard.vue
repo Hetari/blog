@@ -7,7 +7,7 @@
         />
 
         <div
-            class="flex-col justify-start items-start gap-3 flex"
+            class="flex-col w-full justify-start items-start gap-3 flex"
             :class="{
                 'h-full': showAllExcerpt,
             }"
@@ -66,14 +66,19 @@
                     :color="category.color"
                 >
                     <Link
-                        v-html="category.bg_color"
+                        v-html="category.color"
                         :href="`categories/${category.slug}`"
                     >
                     </Link>
                 </CategoryBadge>
             </div>
             <div v-if="showPost" class="">
-                <UpDownLike :likes="Likes" />
+                <UpDownLike
+                    :slug="post.slug"
+                    :likes="totalLikes()"
+                    :up_voted="isUpVoted()"
+                    :down_voted="isDownVoted()"
+                />
             </div>
         </div>
     </div>
@@ -83,6 +88,10 @@
 import CategoryBadge from "./CategoryBadge.vue";
 import { formatPublishedDate } from "@/functions";
 import { UpDownLike } from "@/Components";
+import { computed } from "vue";
+import { usePage } from "@inertiajs/vue3";
+
+const user_id = computed(() => usePage().props.auth?.user.id);
 
 const props = defineProps({
     post: {
@@ -97,9 +106,29 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
-    Likes: {
-        type: Number,
-        default: 0,
-    },
 });
+
+// calculate how many likes and dislike for the post
+const totalLikes = () => {
+    // const isLike = props.post.likes;
+    const isLike = props.post.likes.filter((like) => like.is_like === 1);
+    const dislike = props.post.likes.filter((like) => like.is_dislike === 1);
+    return isLike.length - dislike.length;
+};
+
+const isUpVoted = () => {
+    return (
+        props.post.likes.filter(
+            (like) => like.is_like === 1 && like.user_id === user_id
+        ).length === 1
+    );
+};
+
+const isDownVoted = () => {
+    return (
+        props.post.likes.filter(
+            (like) => like.is_dislike === 1 && like.user_id === user_id
+        ).length === 1
+    );
+};
 </script>

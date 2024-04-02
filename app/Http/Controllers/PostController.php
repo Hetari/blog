@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\UpDownLike;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Request;
@@ -77,7 +78,7 @@ class PostController extends Controller
 
         return Inertia::render('Home/Home', [
             'posts' => $posts,
-            'canLogin' => Route::has('login'),
+            // 'canLogin' => Route::has('login'),
         ]);
     }
 
@@ -86,12 +87,14 @@ class PostController extends Controller
      */
     public function show(string $slug)
     {
-
+        // $likes = UpDownLike::where('post_id', '=', $post->id)->get();
         $post = Post::where('slug', "=", $slug)
             ->with('categories')
+
             ->orderByDesc('published_at')
             ->paginate()
             ->map(fn ($post) => [
+                "id" => $post->id,
                 "title" => $post->title,
                 "slug" => $post->slug,
                 "thumbnail" => $post->getThumbnail(),
@@ -101,6 +104,13 @@ class PostController extends Controller
                 "user" => $this->sanitizeUserData($post->user),
                 "meta_title" => $post->meta_title,
                 "meta_description" => $post->meta_description,
+                "likes" => UpDownLike::where('post_id', '=', $post->id)
+                    ->get()
+                    ->map(fn ($like) => [
+                        'user_id' => $like->user_id,
+                        'is_like' => $like->is_like,
+                        'is_dislike' => $like->is_dislike,
+                    ])
             ]);
 
         $recent_posts = Post::where('active', "=", true)
@@ -127,6 +137,7 @@ class PostController extends Controller
         return Inertia::render('Home/Post', [
             'post' => $post,
             'recent_posts' => $recent_posts,
+            // 'canLogin' => Route::has('login'),
         ]);
     }
 
@@ -169,5 +180,38 @@ class PostController extends Controller
         return Inertia::render('Home/Home', [
             'posts' => $posts
         ]);
+    }
+
+    public function vote(string $slug)
+    {
+        // $likes = request()->likes;
+        $isLike = (bool) request()->isLike;
+        $isDislike = (bool) request()->isDislike;
+
+        $userID = auth()->id();
+
+        $post = Post::where('slug', "=", $slug)
+            ->with("likes")
+            ->first();
+
+        $like = UpDownLike::where("post_id", "=", $post->id)
+            ->where("user_id", "=", $userID)
+            ->first();
+
+        if (!$like) {
+            $like = UpDownLike::create([
+                "user_id" => $userID,
+                "post_id" => $post->id,
+                "is_like" => $isLike,
+                "is_dislike" => $isDislike
+            ]);
+        } else {
+            $like->update([
+                "is_like" => $isLike,
+                "is_dislike" => $isDislike
+            ]);
+        }
+
+        $like->save();
     }
 }
