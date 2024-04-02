@@ -32,6 +32,7 @@ require __DIR__ . '/auth.php';
 // Posts routes
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+Route::post('/posts/{post}/like', [PostController::class, 'vote'])->name('posts.vote');
 
 // Categories routes
 Route::get('/categories/{category:slug}', [CategoryController::class, 'index'])->name('categories');

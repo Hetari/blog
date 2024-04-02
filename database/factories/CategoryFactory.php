@@ -19,8 +19,7 @@ class CategoryFactory extends Factory
         return [
             'title' => $this->faker->word(),
             'slug' => $this->faker->slug(),
-            'bg_color' => $this->faker->unique()->safeHexColor(),
-            'text_color' => $this->faker->unique()->safeHexColor(),
+            'color' => $this->faker->unique()->colorName(),
         ];
     }
 }
