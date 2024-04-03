@@ -12,14 +12,23 @@
                 'h-full': showAllExcerpt,
             }"
         >
-            <p class="font-semibold text-[#6941C6] dark:text-[#a47cff]">
-                <Link :href="`/users/${post.user.username}`" class="capitalize">
+            <div class="w-full flex justify-between">
+                <Link
+                    :href="`/users/${post.user.username}`"
+                    class="font-semibold text-[#6941C6] dark:text-[#a47cff]"
+                >
                     <time>
                         {{ formatPublishedDate(post.published_at) }}
                     </time>
-                    by <span class="underline">{{ post.user.name }} </span>
+                    by
+                    <span class="underline capitalize"
+                        >{{ post.user.name }}
+                    </span>
                 </Link>
-            </p>
+                <p class="text-sm text-gray-700 dark:text-gray-300">
+                    {{ post.human_read_time }}
+                </p>
+            </div>
 
             <Link
                 :href="`/posts/${post.slug}`"

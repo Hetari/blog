@@ -74,6 +74,7 @@ class PostController extends Controller
                 "published_at" => $post->published_at,
                 "categories" => $post->categories,
                 "user" => $this->sanitizeUserData($post->user),
+                "human_read_time" => $post->humanReadTime
             ]);
 
         return Inertia::render('Home/Home', [

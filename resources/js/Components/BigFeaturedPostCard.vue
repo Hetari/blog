@@ -11,17 +11,21 @@
         </div>
 
         <div class="space-y-3 xl:ml-10 h-full">
-            <div class="max-lg:mt-3">
-                <p class="font-semibold text-[#6941C6] dark:text-[#a47cff]">
-                    <Link
-                        :href="`/users/${post.user.username}`"
-                        class="capitalize"
-                    >
-                        <time>
-                            {{ formatPublishedDate(post.published_at) }}
-                        </time>
-                        by <span class="underline">{{ post.user.name }} </span>
-                    </Link>
+            <div class="max-lg:mt-3 flex justify-between">
+                <Link
+                    :href="`/users/${post.user.username}`"
+                    class="font-semibold text-[#6941C6] dark:text-[#a47cff]"
+                >
+                    <time>
+                        {{ formatPublishedDate(post.published_at) }}
+                    </time>
+                    by
+                    <span class="underline capitalize"
+                        >{{ post.user.name }}
+                    </span>
+                </Link>
+                <p class="text-sm text-gray-700 dark:text-gray-300">
+                    {{ post.human_read_time }}
                 </p>
             </div>
 

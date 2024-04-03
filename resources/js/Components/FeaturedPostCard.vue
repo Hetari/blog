@@ -19,17 +19,24 @@
         </div>
 
         <div class="flex-1 max-sm:mt-3">
-            <div :class="mdAspect ? 'my-3' : 'm-0 p-0'">
-                <p class="font-semibold text-[#6941C6] dark:text-[#a47cff]">
-                    <Link
-                        :href="`/users/${post.user.username}`"
-                        class="capitalize"
-                    >
-                        <time>
-                            {{ formatPublishedDate(post.published_at) }}
-                        </time>
-                        by <span class="underline">{{ post.user.name }} </span>
-                    </Link>
+            <div
+                class="flex justify-between"
+                :class="mdAspect ? 'my-3' : 'm-0 p-0'"
+            >
+                <Link
+                    :href="`/users/${post.user.username}`"
+                    class="font-semibold text-[#6941C6] dark:text-[#a47cff]"
+                >
+                    <time>
+                        {{ formatPublishedDate(post.published_at) }}
+                    </time>
+                    by
+                    <span class="underline capitalize"
+                        >{{ post.user.name }}
+                    </span>
+                </Link>
+                <p class="text-sm text-gray-700 dark:text-gray-300">
+                    {{ post.human_read_time }}
                 </p>
             </div>
 
