@@ -14,11 +14,6 @@ class PostOverview extends BaseWidget
     protected static string $view = 'post-overview';
     public ?Model $record = null;
 
-    protected function columns(): int
-    {
-        return 5;
-    }
-
     protected function getViewData(): array
     {
         return [

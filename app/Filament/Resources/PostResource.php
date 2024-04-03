@@ -93,9 +93,11 @@ class PostResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('thumbnail'),
                 Tables\Columns\IconColumn::make('active')
+                    ->sortable()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
+                    ->sortable()
+                    ->searchable(['title', 'body']),
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable(),
@@ -116,7 +118,7 @@ class PostResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

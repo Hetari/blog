@@ -26,18 +26,20 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
+        User::factory(10)->create();
         $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
 
+        Category::factory(10)->create();
         $category = Category::factory()->create([
             'title' => 'test',
             'slug' => 'test',
             'color' => 'red'
         ]);
 
+        Post::factory(10)->create();
         $post = Post::factory()->create([
             'title' => 'test',
             'slug' => 'test',
@@ -49,9 +51,6 @@ class DatabaseSeeder extends Seeder
             'meta_title' => 'test',
             'meta_description' => 'test',
         ]);
-
-        Post::factory(2)->create();
-
 
 
         $post->categories()->attach($category);

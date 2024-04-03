@@ -1,7 +1,7 @@
 <template>
     <div class="w-full flex-col justify-start items-start gap-8 inline-flex">
         <img
-            class="w-full h-full relative"
+            class="object-cover w-full h-full aspect-1"
             loading="lazy"
             :src="post.thumbnail"
         />
