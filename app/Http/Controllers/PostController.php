@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\PostView;
 use App\Models\UpDownLike;
 use App\Models\User;
 use Carbon\Carbon;
@@ -35,7 +36,6 @@ class PostController extends Controller
     // TODO: use cache here, and others controllers.
     public function index()
     {
-
         $posts = Post::query()
             ->when(
                 Request::input('search'),
@@ -133,6 +133,17 @@ class PostController extends Controller
         if ($post->isEmpty()) {
             return redirect()->route('home');
         }
+
+
+        $user = request()->user();
+
+        // TODO: if I keep refresh this page, it will create postView for every refresh, fix that by generate random token and save this in user cookies, and give it 1 hour lifetime, and every time the user will make in this page will considered a single view, and we will not create a a new view for the same user and agent for 1 hour.
+        PostView::create([
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+            'post_id' => $post[0]['id'],
+            'user_id' => $user?->id
+        ]);
 
         return Inertia::render('Home/Post', [
             'post' => $post,

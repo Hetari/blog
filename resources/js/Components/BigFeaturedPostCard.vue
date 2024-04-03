@@ -26,7 +26,7 @@
             </div>
 
             <Link
-                :href="`posts/${post.slug}`"
+                :href="`/posts/${post.slug}`"
                 class="flex justify-between items-center"
             >
                 <!-- Adjusted alignment -->
