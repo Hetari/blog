@@ -1,13 +1,15 @@
 <template>
-    <div class="w-full flex-col justify-start items-start gap-8 inline-flex">
+    <article
+        class="w-full flex-col justify-start items-start gap-8 inline-flex"
+    >
         <img
             class="object-cover w-full h-full aspect-1"
             loading="lazy"
             :src="post.thumbnail"
         />
 
-        <div
-            class="flex-col w-full justify-start items-start gap-3 flex"
+        <section
+            class="flex-col size-full justify-start items-start gap-3 flex"
             :class="{
                 'h-full': showAllExcerpt,
             }"
@@ -35,7 +37,7 @@
                 class="flex justify-between items-start w-full"
             >
                 <h3
-                    class="text-2xl font-semibold cursor-pointer"
+                    class="text-xl font-semibold cursor-pointer"
                     v-html="post.title"
                 ></h3>
                 <span class="pt-3">
@@ -64,9 +66,9 @@
                 }"
                 v-html="!showPost ? post.excerpt : post.body"
             ></p>
-        </div>
+        </section>
 
-        <div class="w-full flex items-center justify-between">
+        <section class="w-full flex items-center justify-between">
             <div class="inline-grid grid-cols-3 gap-3">
                 <CategoryBadge
                     v-for="category in post.categories"
@@ -89,12 +91,16 @@
                     :down_voted="isDownVoted()"
                 />
             </div>
-        </div>
-    </div>
+        </section>
+
+        <section v-if="showPost" class="w-full space-y-10">
+            <Comments />
+        </section>
+    </article>
 </template>
 
 <script setup>
-import CategoryBadge from "./CategoryBadge.vue";
+import { CategoryBadge, Comments } from "@/Components";
 import { formatPublishedDate } from "@/functions";
 import { UpDownLike } from "@/Components";
 import { computed } from "vue";
@@ -128,7 +134,7 @@ const totalLikes = () => {
 const isUpVoted = () => {
     return (
         props.post.likes.filter(
-            (like) => like.is_like === 1 && like.user_id === user_id
+            (like) => like.is_like === 1 && like.user_id === user_id.value
         ).length === 1
     );
 };
@@ -136,7 +142,7 @@ const isUpVoted = () => {
 const isDownVoted = () => {
     return (
         props.post.likes.filter(
-            (like) => like.is_dislike === 1 && like.user_id === user_id
+            (like) => like.is_dislike === 1 && like.user_id === user_id.value
         ).length === 1
     );
 };

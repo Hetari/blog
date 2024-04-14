@@ -8,6 +8,8 @@ import PostCard from "@/Components/PostCard.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import UpDownLike from "@/Components/UpDownLike.vue";
+import Comments from "@/Components/Comments.vue";
+import CommentCard from "@/Components/CommentCard.vue";
 
 export {
     Nav,
@@ -20,4 +22,6 @@ export {
     Dropdown,
     DropdownLink,
     UpDownLike,
+    Comments,
+    CommentCard,
 };

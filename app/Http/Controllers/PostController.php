@@ -107,6 +107,7 @@ class PostController extends Controller
                 "user" => $this->sanitizeUserData($post->user),
                 "meta_title" => $post->meta_title,
                 "meta_description" => $post->meta_description,
+                "human_read_time" => $post->humanReadTime,
                 "likes" => UpDownLike::where('post_id', '=', $post->id)
                     ->get()
                     ->map(fn ($like) => [
@@ -196,7 +197,7 @@ class PostController extends Controller
         ]);
     }
 
-    public function vote(string $slug)
+    public function like(string $slug)
     {
         // $likes = request()->likes;
         $isLike = (bool) request()->isLike;

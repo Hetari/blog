@@ -80,16 +80,8 @@ const likes = ref(props.likes + 0);
 const upVoted = ref(props.up_voted);
 const downVoted = ref(props.down_voted);
 
-// TODO frontend and backend:
-// [ ] confected to db.
-// [ ] check if it auth user or not.
-// [ ] check if it email verified email.
-// [ ] select the up down vote, if there is not create a new one
-// [ ] if click again in up vote and they already up vote it, remove it, and vis verses
-
 const vote = (event) => {
     if (!canLogin.value) {
-        // need to login
         return (window.location.href = "/login");
     }
     // Get the target id.

@@ -266,6 +266,4 @@ function confirmLogout() {
 
     document.getElementById("logout-form").submit();
 }
-
-let params = new URLSearchParams(window.location.search);
 </script>
