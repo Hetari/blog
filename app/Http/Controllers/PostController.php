@@ -256,4 +256,12 @@ class PostController extends Controller
             ]);
         }
     }
+
+    public function deleteComment(string $id)
+    {
+        $comment = Comment::find($id);
+        $comment->delete();
+
+        return redirect()->back();
+    }
 }

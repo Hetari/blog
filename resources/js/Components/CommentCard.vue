@@ -3,6 +3,7 @@
         <div class="flex items-start">
             <img
                 class="size-10 rounded-full me-4"
+                y
                 src="https://i.pravatar.cc/40?u={{ comment.user_id }}"
                 alt="Rounded avatar"
             />
@@ -65,7 +66,7 @@
                         v-if="canLogin.id == comment.user_id"
                         href="#"
                         class="flex items-center gap-2 hover:text-red-500 group"
-                        @click="deleteComment(comment.id)"
+                        @click.prevent="deleteComment(comment.id)"
                     >
                         <svg
                             class="text-[#77808B] group-hover:text-red-500 fill-current"
@@ -88,44 +89,30 @@
 </template>
 
 <script setup>
+import { usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
-import { comment } from "postcss";
+import { formatPublishedDate } from "@/functions";
+import { router } from "@inertiajs/vue3";
+
+const canLogin = computed(() => usePage().props.auth?.user);
 
 const props = defineProps({
-    commentAuthor: {
-        type: Object,
-        default: () => {},
-        // required: true,
-    },
-    hasReplies: {
-        type: Boolean,
-        default: true,
-    },
     comment: {
         type: Object,
-        default: {
-            user_id: 1,
-            user_name: "Bonnie Green",
-            commentBody:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus ac nulla semper rhoncus. Nullam a odio porttitor, dictum turpis vitae, pretium ante amet.",
-            commentDate: "Aug 18",
-            commentLikes: 0,
-            commentReplies: [
-                {
-                    user_id: 1,
-                    user_name: "Bonnie Green",
-                    commentBody:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus ac nulla semper rhoncus. Nullam a odio porttitor, dictum turpis vitae, pretium ante amet.",
-                    commentDate: "Aug 18",
-                    commentLikes: 0,
-                },
-            ],
-        },
-        // required: true,
+        required: true,
     },
 });
 
 const showLabels = () => {
     return window.innerWidth < 640;
+};
+
+const deleteComment = (id) => {
+    console.log(id);
+    router.delete(`/comments/${id}`, {
+        preserveState: true,
+        replace: true,
+        preserveScroll: true,
+    });
 };
 </script>
