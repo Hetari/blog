@@ -243,11 +243,17 @@ class PostController extends Controller
     {
         $comment = request()->comment;
 
+        $user = auth()->id();
+
+        if (!$user) {
+            return redirect("/Login");
+        }
+
+        if ($user !== $comment->user_id) {
+            return redirect()->back();
+        }
+
         if ($comment) {
-            $user = auth()->id();
-            if (!$user) {
-                return redirect("/Login");
-            }
 
             Comment::create([
                 "post_id" => Post::where('slug', "=", $slug)->first()->id,
@@ -267,6 +273,10 @@ class PostController extends Controller
 
             if (!$user) {
                 return redirect("/Login");
+            }
+
+            if ($user !== $comment->user_id) {
+                return redirect()->back();
             }
 
             $comment->update([
