@@ -5,23 +5,41 @@
         </div>
         <form>
             <div
+                id="comment-container"
                 class="py-2 px-4 rounded-lg border border-blue-400 dark:bg-gray-800 dark:border-gray-700 w-full relative"
+                :class="{ groupe: !canLogin }"
+                @click="focusComment"
             >
                 <label for="comment" class="sr-only">Your comment</label>
                 <textarea
                     id="comment"
                     rows="6"
-                    class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800 resize-none"
-                    placeholder="Leave your comment here..."
-                    required
+                    class="px-0 mb-14 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800 resize-none"
+                    :placeholder="
+                        canLogin
+                            ? 'Leave your comment here...'
+                            : 'Log in to leave a comment...'
+                    "
+                    :class="{
+                        'cursor-not-allowed pointer-events-none': !canLogin,
+                    }"
+                    :required="canLogin"
+                    :readonly="!canLogin"
+                    v-model="comment"
                 >
                 </textarea>
                 <button
+                    id="comment-btn"
+                    @click.prevent="sendComment"
                     type="submit"
-                    class="absolute bottom-5 right-5 py-2.5 px-4 text-xs font-medium text-center bg-blue-600 text-white rounded-lg hover:bg-blue-800"
-                >
-                    Send
-                </button>
+                    class="absolute bottom-5 right-5 py-2.5 px-4 text-xs font-medium text-center rounded-lg"
+                    :class="
+                        canLogin
+                            ? 'bg-blue-600 text-white hover:bg-blue-800'
+                            : 'bg-gray-500 text-gray-100 hover:bg-gray-600'
+                    "
+                    v-html="canLogin ? 'Send' : 'Login to comment'"
+                ></button>
             </div>
         </form>
     </section>
@@ -39,4 +57,58 @@
 
 <script setup>
 import { CommentCard } from "@/Components";
+import { router } from "@inertiajs/vue3";
+import { computed, onMounted, ref } from "vue";
+import { usePage } from "@inertiajs/vue3";
+import tippy from "tippy.js";
+import "tippy.js/dist/tippy.css";
+
+const canLogin = computed(() => usePage().props.auth?.user);
+
+const props = defineProps({
+    slug: {
+        type: String,
+        required: true,
+    },
+});
+
+const comment = ref("");
+
+const sendComment = () => {
+    if (!canLogin.value) {
+        // go to login page
+        return router.get("/login");
+    }
+    const createComment = `/posts/${props.slug}/comment`;
+    console.log(createComment);
+
+    router.post(
+        createComment,
+        {
+            comment: comment.value,
+        },
+        {
+            preserveState: true,
+            replace: true,
+        }
+    );
+};
+
+const focusComment = () => {
+    // Add your focus logic here
+    const comment = document.getElementById("comment");
+    if (comment) {
+        comment.focus();
+    }
+};
+
+onMounted(() => {
+    tippy("#comment-container", {
+        content: `${
+            canLogin.value
+                ? "Leave your comment here..."
+                : "Log in to leave a comment..."
+        }`,
+    });
+});
 </script>

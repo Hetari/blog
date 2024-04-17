@@ -24,6 +24,7 @@
         "@vueuse/core": "^10.9.0",
         "@vueuse/head": "^2.0.0",
         "dayjs": "^1.11.10",
-        "markdown-it": "^14.1.0"
+        "markdown-it": "^14.1.0",
+        "tippy.js": "^6.3.7"
     }
 }

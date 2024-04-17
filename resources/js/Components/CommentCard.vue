@@ -84,7 +84,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { usePage } from "@inertiajs/vue3";
+import { comment } from "postcss";
 
 const props = defineProps({
     commentAuthor: {
@@ -98,7 +98,24 @@ const props = defineProps({
     },
     comment: {
         type: Object,
-        default: () => {},
+        default: {
+            user_id: 1,
+            user_name: "Bonnie Green",
+            commentBody:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus ac nulla semper rhoncus. Nullam a odio porttitor, dictum turpis vitae, pretium ante amet.",
+            commentDate: "Aug 18",
+            commentLikes: 0,
+            commentReplies: [
+                {
+                    user_id: 1,
+                    user_name: "Bonnie Green",
+                    commentBody:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus ac nulla semper rhoncus. Nullam a odio porttitor, dictum turpis vitae, pretium ante amet.",
+                    commentDate: "Aug 18",
+                    commentLikes: 0,
+                },
+            ],
+        },
         // required: true,
     },
 });

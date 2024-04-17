@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\PostView;
 use App\Models\UpDownLike;
@@ -199,7 +200,6 @@ class PostController extends Controller
 
     public function like(string $slug)
     {
-        // $likes = request()->likes;
         $isLike = (bool) request()->isLike;
         $isDislike = (bool) request()->isDislike;
 
@@ -228,5 +228,24 @@ class PostController extends Controller
         }
 
         $like->save();
+    }
+    public function comment(string $slug)
+    {
+        $comment = request()->comment;
+        dd($comment);
+
+        // Create new comment
+        if ($comment) {
+            $user = auth()->id();
+            if (!$user) {
+                return redirect("/Login");
+            }
+
+            Comment::create([
+                "post_id" => Post::where('slug', "=", $slug)->first()->id,
+                "user_id" => $user,
+                "comment" => $comment
+            ]);
+        }
     }
 }

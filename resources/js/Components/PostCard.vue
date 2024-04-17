@@ -94,7 +94,7 @@
         </section>
 
         <section v-if="showPost" class="w-full space-y-10">
-            <Comments />
+            <Comments :slug="post.slug" />
         </section>
     </article>
 </template>
