@@ -92,8 +92,9 @@ class PostController extends Controller
     public function show(string $slug)
     {
         // $likes = UpDownLike::where('post_id', '=', $post->id)->get();
+
         $post = Post::where('slug', "=", $slug)
-            ->with('categories')
+            ->with('categories', 'comments.user',)
 
             ->orderByDesc('published_at')
             ->paginate()
@@ -115,8 +116,16 @@ class PostController extends Controller
                         'user_id' => $like->user_id,
                         'is_like' => $like->is_like,
                         'is_dislike' => $like->is_dislike,
-                    ])
+                    ]),
+                "comments" => $post->comments->map(fn ($comment) => [
+                    "id" => $comment->id,
+                    "comment" => $comment->comment,
+                    "post_id" => $comment->post_id,
+                    "user_id" => $comment->user_id,
+                    "user" => $this->sanitizeUserData($comment->user),
+                ])
             ]);
+
 
         $recent_posts = Post::where('active', "=", true)
             ->whereDate('published_at', "<=", Carbon::now())
@@ -229,12 +238,11 @@ class PostController extends Controller
 
         $like->save();
     }
+
     public function comment(string $slug)
     {
         $comment = request()->comment;
-        dd($comment);
 
-        // Create new comment
         if ($comment) {
             $user = auth()->id();
             if (!$user) {

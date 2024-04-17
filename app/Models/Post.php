@@ -48,6 +48,11 @@ class Post extends Model
         return $this->hasMany(UpDownLike::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function excerpt(): string
     {
         return Str::words(strip_tags($this->body), 50);

@@ -3,19 +3,21 @@
         <div class="flex items-start">
             <img
                 class="size-10 rounded-full me-4"
-                src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"
+                src="https://i.pravatar.cc/40?u={{ comment.user_id }}"
                 alt="Rounded avatar"
             />
             <div class="flex-col items-center mb-6 space-y-2">
                 <div class="text-sm">
-                    <p class="text-gray-900 dark:text-white">Bonnie Green</p>
-                    <p class="text-gray-600 dark:text-gray-400">Aug 18</p>
+                    <p class="text-gray-900 dark:text-white">
+                        {{ comment.user.name }}
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        {{ formatPublishedDate(comment.created_at) }}
+                    </p>
                 </div>
                 <div>
                     <p class="mb-5">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nulla euismod, nisl vitae consequat eleifend, nunc nisl
-                        volutpat
+                        {{ comment.comment }}
                     </p>
                 </div>
                 <div
@@ -41,6 +43,7 @@
                     </Link>
 
                     <Link
+                        v-if="canLogin.id == comment.user_id"
                         href="#"
                         class="flex items-center gap-2 hover:text-green-500 group"
                     >
@@ -59,8 +62,10 @@
                     </Link>
 
                     <Link
+                        v-if="canLogin.id == comment.user_id"
                         href="#"
                         class="flex items-center gap-2 hover:text-red-500 group"
+                        @click="deleteComment(comment.id)"
                     >
                         <svg
                             class="text-[#77808B] group-hover:text-red-500 fill-current"

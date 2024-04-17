@@ -1,7 +1,9 @@
 <template>
     <section class="pt-6">
         <div class="text-left mb-6">
-            <h2 class="text-lg lg:text-2xl font-bold">Discussion (20)</h2>
+            <h2 class="text-lg lg:text-2xl font-bold">
+                Discussion ({{ comments.length }})
+            </h2>
         </div>
         <form>
             <div
@@ -12,7 +14,7 @@
             >
                 <label for="comment" class="sr-only">Your comment</label>
                 <textarea
-                    id="comment"
+                    ref="commentInput"
                     rows="6"
                     class="px-0 mb-14 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800 resize-none"
                     :placeholder="
@@ -44,14 +46,15 @@
         </form>
     </section>
 
-    <section class="space-y-10">
-        <CommentCard class="bg-gray-100 dark:bg-gray-900 w-full rounded-lg p-5">
-            <CommentCard class="ms-14" />
-        </CommentCard>
-
+    <section class="space-y-10 space-y-reverse flex flex-col-reverse">
         <CommentCard
             class="bg-gray-100 dark:bg-gray-900 w-full rounded-lg p-5"
-        />
+            v-for="comment in comments"
+            :key="comment.id"
+            :comment="comment"
+        >
+            <!-- <CommentCard class="ms-14" /> -->
+        </CommentCard>
     </section>
 </template>
 
@@ -64,11 +67,16 @@ import tippy from "tippy.js";
 import "tippy.js/dist/tippy.css";
 
 const canLogin = computed(() => usePage().props.auth?.user);
+const commentInput = ref(null);
 
 const props = defineProps({
     slug: {
         type: String,
         required: true,
+    },
+    comments: {
+        type: Array,
+        default: [],
     },
 });
 
@@ -90,16 +98,13 @@ const sendComment = () => {
         {
             preserveState: true,
             replace: true,
+            preserveScroll: true,
         }
     );
 };
 
 const focusComment = () => {
-    // Add your focus logic here
-    const comment = document.getElementById("comment");
-    if (comment) {
-        comment.focus();
-    }
+    commentInput.value.focus();
 };
 
 onMounted(() => {
