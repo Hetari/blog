@@ -257,6 +257,26 @@ class PostController extends Controller
         }
     }
 
+    public function editComment(string $post, string $commentId)
+    {
+        $comment = Comment::find($commentId);
+        if ($comment) {
+            $commentInput = request()->comment;
+
+            $user = auth()->id();
+
+            if (!$user) {
+                return redirect("/Login");
+            }
+
+            $comment->update([
+                "comment" => $commentInput
+            ]);
+
+            $comment->save();
+            return redirect()->back();
+        }
+    }
     public function deleteComment(string $id)
     {
         $comment = Comment::find($id);

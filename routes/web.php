@@ -35,6 +35,7 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show')
 Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
 
 Route::post('/posts/{post}/comment', [PostController::class, 'comment'])->name('post.comment');
+Route::put('/posts/{post}/comment/edit/{comment}', [PostController::class, 'editComment'])->name('posts.comment.edit');
 Route::delete('/comments/{comment}', [PostController::class, 'deleteComment'])->name('comments.delete');
 
 // Categories routes

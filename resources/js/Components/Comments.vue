@@ -48,6 +48,7 @@
 
     <section class="space-y-10 space-y-reverse flex flex-col-reverse">
         <CommentCard
+            @editComment="editComment"
             class="bg-gray-100 dark:bg-gray-900 w-full rounded-lg p-5"
             v-for="comment in comments"
             :key="comment.id"
@@ -81,6 +82,8 @@ const props = defineProps({
 });
 
 const comment = ref("");
+let commentId = ref(null);
+let isEditing = ref(false);
 
 const sendComment = () => {
     if (!canLogin.value) {
@@ -88,23 +91,48 @@ const sendComment = () => {
         return router.get("/login");
     }
     const createComment = `/posts/${props.slug}/comment`;
-    console.log(createComment);
+    const editComment = `/posts/${props.slug}/comment/edit/${commentId.value}`;
 
-    router.post(
-        createComment,
-        {
-            comment: comment.value,
-        },
-        {
-            preserveState: true,
-            replace: true,
-            preserveScroll: true,
-        }
-    );
+    if (isEditing.value) {
+        router.put(
+            editComment,
+            {
+                comment: comment.value,
+            },
+            {
+                preserveState: true,
+                replace: true,
+                preserveScroll: true,
+            }
+        );
+        isEditing.value = false;
+        commentId.value = null;
+    } else {
+        router.post(
+            createComment,
+            {
+                comment: comment.value,
+            },
+            {
+                preserveState: true,
+                replace: true,
+                preserveScroll: true,
+            }
+        );
+    }
+
+    comment.value = "";
 };
 
 const focusComment = () => {
     commentInput.value.focus();
+};
+
+const editComment = (comment) => {
+    commentInput.value.focus();
+    commentInput.value.value = comment.comment;
+    commentId.value = comment.id;
+    isEditing.value = true;
 };
 
 onMounted(() => {

@@ -44,6 +44,7 @@
                     </Link>
 
                     <Link
+                        @click="editComment(comment.id)"
                         v-if="canLogin.id == comment.user_id"
                         href="#"
                         class="flex items-center gap-2 hover:text-green-500 group"
@@ -103,16 +104,22 @@ const props = defineProps({
     },
 });
 
+const emit = defineEmits(["editComment"]);
+
 const showLabels = () => {
     return window.innerWidth < 640;
 };
 
 const deleteComment = (id) => {
-    console.log(id);
     router.delete(`/comments/${id}`, {
         preserveState: true,
         replace: true,
         preserveScroll: true,
     });
+};
+
+const editComment = () => {
+    emit("editComment", props.comment);
+    router.cancel();
 };
 </script>
